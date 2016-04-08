@@ -13,6 +13,9 @@
 		FBFDF9851C9FEE7C005F12FD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBFDF9831C9FEE7C005F12FD /* Main.storyboard */; };
 		FBFDF9871C9FEE7C005F12FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBFDF9861C9FEE7C005F12FD /* Assets.xcassets */; };
 		FBFDF98A1C9FEE7C005F12FD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBFDF9881C9FEE7C005F12FD /* LaunchScreen.storyboard */; };
+		FBFDF9931C9FF3D5005F12FD /* IncTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBFDF9921C9FF3D5005F12FD /* IncTableViewCell.m */; };
+		FBFDF9961C9FF531005F12FD /* CornerView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBFDF9951C9FF531005F12FD /* CornerView.m */; };
+		FBFDF9991C9FF5CF005F12FD /* YYSentinel.m in Sources */ = {isa = PBXBuildFile; fileRef = FBFDF9971C9FF5CF005F12FD /* YYSentinel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +29,12 @@
 		FBFDF9861C9FEE7C005F12FD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FBFDF9891C9FEE7C005F12FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FBFDF98B1C9FEE7C005F12FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FBFDF9911C9FF3D5005F12FD /* IncTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IncTableViewCell.h; sourceTree = "<group>"; };
+		FBFDF9921C9FF3D5005F12FD /* IncTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncTableViewCell.m; sourceTree = "<group>"; };
+		FBFDF9941C9FF531005F12FD /* CornerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CornerView.h; sourceTree = "<group>"; };
+		FBFDF9951C9FF531005F12FD /* CornerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CornerView.m; sourceTree = "<group>"; };
+		FBFDF9971C9FF5CF005F12FD /* YYSentinel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YYSentinel.m; path = ../../../../../Desktop/YYSentinel.m; sourceTree = "<group>"; };
+		FBFDF9981C9FF5CF005F12FD /* YYSentinel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YYSentinel.h; path = ../../../../../Desktop/YYSentinel.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +71,10 @@
 				FBFDF97E1C9FEE7C005F12FD /* AppDelegate.m */,
 				FBFDF9801C9FEE7C005F12FD /* ViewController.h */,
 				FBFDF9811C9FEE7C005F12FD /* ViewController.m */,
+				FBFDF9911C9FF3D5005F12FD /* IncTableViewCell.h */,
+				FBFDF9921C9FF3D5005F12FD /* IncTableViewCell.m */,
+				FBFDF9941C9FF531005F12FD /* CornerView.h */,
+				FBFDF9951C9FF531005F12FD /* CornerView.m */,
 				FBFDF9831C9FEE7C005F12FD /* Main.storyboard */,
 				FBFDF9861C9FEE7C005F12FD /* Assets.xcassets */,
 				FBFDF9881C9FEE7C005F12FD /* LaunchScreen.storyboard */,
@@ -74,6 +87,8 @@
 		FBFDF97A1C9FEE7C005F12FD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				FBFDF9971C9FF5CF005F12FD /* YYSentinel.m */,
+				FBFDF9981C9FF5CF005F12FD /* YYSentinel.h */,
 				FBFDF97B1C9FEE7C005F12FD /* main.m */,
 			);
 			name = "Supporting Files";
@@ -110,6 +125,7 @@
 				TargetAttributes = {
 					FBFDF9761C9FEE7C005F12FD = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = GN56AT779C;
 					};
 				};
 			};
@@ -149,8 +165,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBFDF9961C9FF531005F12FD /* CornerView.m in Sources */,
+				FBFDF9991C9FF5CF005F12FD /* YYSentinel.m in Sources */,
 				FBFDF9821C9FEE7C005F12FD /* ViewController.m in Sources */,
 				FBFDF97F1C9FEE7C005F12FD /* AppDelegate.m in Sources */,
+				FBFDF9931C9FF3D5005F12FD /* IncTableViewCell.m in Sources */,
 				FBFDF97C1C9FEE7C005F12FD /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -261,6 +280,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = IncreasedInfluence/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bignerdranch.IncreasedInfluence;
@@ -272,6 +292,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = IncreasedInfluence/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bignerdranch.IncreasedInfluence;
@@ -298,6 +319,7 @@
 				FBFDF9901C9FEE7C005F12FD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
