@@ -13,7 +13,7 @@
 @property(nonatomic, strong)UIImageView *bgImgView;
 @property(nonatomic, strong)UILabel *textLabel;
 
-//optional
+//tbd
 @property(nonatomic, assign) BOOL maskToBound;
 @end
 @implementation CornerView
@@ -60,9 +60,9 @@
     return (_borderWidth >= 0) ? _borderWidth : 1;
 }
 
--(UIColor *)backGroundColor
+-(UIColor *)labelBackGroundColor
 {
-    return _backGroundColor ? : [UIColor blackColor];
+    return _labelBackGroundColor ? : [UIColor blackColor];
 }
 
 -(void)setIsCircle:(BOOL)isCircle {
