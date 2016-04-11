@@ -123,7 +123,7 @@
     }
 }
 
-#pragma -MARK draw
+#pragma -MARK 设置回主线程
 //把画好圆角的图片设置为背景图
 -(void)p_drawWithImage:(UIImage *)img {
     [self.sentinel increase];
@@ -136,6 +136,7 @@
         if(isCancelled()){
             return;
         }
+        //上层图片
         UIImage *topImg = [self drawCornerRadius:img withBorderWidth:self.borderWidth];
         UIImage *bg = [self drawCornerRadius:[self p_solidWithColor:[UIColor yellowColor]] withBorderWidth:0];
         UIImage *final = [self p_mixTopImg:topImg withBgImg:bg];
@@ -149,6 +150,7 @@
     });
 }
 
+#pragma -MARK draw
 //把上下两层图片叠加
 -(UIImage *)p_mixTopImg:(UIImage *)top withBgImg:(UIImage *)bg {
     UIGraphicsBeginImageContextWithOptions(self.bgImgView.frame.size, NO, [UIScreen mainScreen].scale);
