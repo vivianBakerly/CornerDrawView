@@ -34,7 +34,7 @@
     radiusLabel.borderColor = [UIColor yellowColor];
     radiusLabel.textColor = [UIColor purpleColor];
     radiusLabel.labelType = FMLabelType_Hollow;
-    radiusLabel.text = @"ISABELL";
+    radiusLabel.text = @"ISABELLA";
     [self.view addSubview:radiusLabel];
 }
 
