@@ -23,7 +23,7 @@
 @synthesize usedSystemDefault = _usedSystemDefault;
 
 #pragma mark init
--(instancetype)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if(self){
         [self initSettings];
@@ -31,7 +31,7 @@
     return self;
 }
 
--(instancetype)initWithFrame:(CGRect)frame andCornerRadius:(CGFloat)cornerRadius andBorderColor:(UIColor *)borderColor andWithBorderWidth:(CGFloat)borderWidth {
+- (instancetype)initWithFrame:(CGRect)frame andCornerRadius:(CGFloat)cornerRadius andBorderColor:(UIColor *)borderColor andWithBorderWidth:(CGFloat)borderWidth {
     self = [super initWithFrame:frame];
     if(self){
         [self initSettings];
@@ -42,18 +42,18 @@
     return self;
 }
 
-- (void)initSettings
-{
+- (void)initSettings {
     self.sentinel = [YYSentinel new];
     self.usedSystemDefault = NO;
     self.isCircle = NO;
+    self.borderColor = [UIColor clearColor];
     self.bgImgView = [[UIImageView alloc] initWithFrame:self.bounds];
     self.bgImgView.contentMode = UIViewContentModeScaleAspectFit;
+    [self addSubview:self.bgImgView];
 }
 
 #pragma mark properties setting
-- (void)setCornerRadius:(CGFloat)cornerRadius
-{
+- (void)setCornerRadius:(CGFloat)cornerRadius {
     _cornerRadius = (cornerRadius >= 0) ? cornerRadius : 0;
     if(!self.usedSystemDefault){
         self.bgImgView.layer.cornerRadius = 0;
@@ -64,18 +64,22 @@
     }
 }
 
--(void)setBorderWidth:(CGFloat)borderWidth
-{
+-(void)setBorderWidth:(CGFloat)borderWidth {
     _borderWidth = (borderWidth >= 0) ? borderWidth : 0;
 }
 
--(void)setBorderColor:(UIColor *)borderColor
-{
+-(void)setBorderColor:(UIColor *)borderColor {
     _borderColor = borderColor ? : [UIColor clearColor];
 }
 
-- (void)setImage:(UIImage *)image
-{
+- (void)setIsCircle:(BOOL)isCircle {
+    _isCircle = isCircle;
+    CGSize size = self.bounds.size;
+    //取小的值, 避免裁剪过度
+    self.cornerRadius = (size.width <= size.height) ? size.width : size.height;
+}
+
+- (void)setImage:(UIImage *)image {
     _image = image;
     if(!self.usedSystemDefault){
         [self p_drawWithImage:image];
@@ -85,8 +89,7 @@
 }
 
 #pragma draw
--(void)p_drawWithImage:(UIImage *)img
-{
+-(void)p_drawWithImage:(UIImage *)img {
     [self.sentinel increase];
     int32_t value = self.sentinel.value;
     BOOL (^isCancelled)() = ^BOOL(){
