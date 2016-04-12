@@ -7,15 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FMRadiusDrawProtocol.h"
+
 typedef enum : NSUInteger {
-    FMLabelType_None,
     FMLabelType_Solid,
     FMLabelType_Hollow,
-}FMLabelType;
+}FMRadiusLabelType;
 
-@interface FMRadiusLabelView : UIView
+@interface FMRadiusLabel : UIView<FMRadiusDrawProtocol>
 
-@property(nonatomic)FMLabelType labelType;
+@property(nonatomic)FMRadiusLabelType labelType;
 @property(nonatomic, strong)NSString *text;
 @property(nonatomic, strong)UIColor *textColor;
 @property(nonatomic, strong)UIColor *labelBackGroundColor;

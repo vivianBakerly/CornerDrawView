@@ -8,6 +8,7 @@
 
 #import "DrawRadiusViewController.h"
 #import "FMRadiusImageView.h"
+#import "FMRadiusLabel.h"
 @interface DrawRadiusViewController ()
 
 @end
@@ -24,6 +25,17 @@
     radiusImg.borderWidth = 2.0f;
     radiusImg.image = [UIImage imageNamed:@"Avatar_2"];
     [self.view addSubview:radiusImg];
+    
+    
+    
+    FMRadiusLabel *radiusLabel = [[FMRadiusLabel alloc] initWithFrame:CGRectMake(deviation * 2, deviation * 2, 100, 50)];
+    radiusLabel.cornerRadius = 10;
+    radiusLabel.borderWidth = 2;
+    radiusLabel.borderColor = [UIColor yellowColor];
+    radiusLabel.textColor = [UIColor purpleColor];
+    radiusLabel.labelType = FMLabelType_Hollow;
+    radiusLabel.text = @"ISABELL";
+    [self.view addSubview:radiusLabel];
 }
 
 

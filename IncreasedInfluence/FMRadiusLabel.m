@@ -1,5 +1,5 @@
 //
-//  FMRadiusImageView.m
+//  FMRadiusLabelView.m
 //  IncreasedInfluence
 //
 //  Created by isahuang on 16/4/11.
@@ -7,15 +7,16 @@
 //
 
 #import "YYSentinel.h"
-#import "FMRadiusImageView.h"
-
+#import "FMRadiusLabel.h"
 #import "UIImage+DrawRadius.h"
 
-@interface FMRadiusImageView()
+@interface FMRadiusLabel()
 @property(nonatomic, strong)YYSentinel *sentinel;
 @property(nonatomic, strong)UIImageView *bgImgView;
+@property(nonatomic, strong)UILabel *textLabel;
 @end
-@implementation FMRadiusImageView
+
+@implementation FMRadiusLabel
 
 @synthesize cornerRadius = _cornerRadius;
 @synthesize borderWidth = _borderWidth;
@@ -45,8 +46,8 @@
 - (void)initSettings {
     self.sentinel = [YYSentinel new];
     self.usedSystemDefault = NO;
-    self.isCircle = NO;
     self.borderColor = [UIColor clearColor];
+    self.textColor = [UIColor blackColor];
     self.bgImgView = [[UIImageView alloc] initWithFrame:self.bounds];
     self.bgImgView.contentMode = UIViewContentModeScaleAspectFit;
     [self addSubview:self.bgImgView];
@@ -72,28 +73,63 @@
     _borderColor = borderColor ? : [UIColor clearColor];
 }
 
-- (void)setIsCircle:(BOOL)isCircle {
-    _isCircle = isCircle;
-    CGSize size = self.bounds.size;
-    //取小的值, 避免裁剪过度
-    self.cornerRadius = (size.width <= size.height) ? size.width : size.height;
+-(void)setTextColor:(UIColor *)textColor {
+    _textColor = textColor ? : [UIColor blackColor];
 }
 
-- (void)setImage:(UIImage *)image {
-    _image = image;
-    if(!self.usedSystemDefault){
-        [self p_drawWithImage:image];
+-(void)setBackgroundColor:(UIColor *)backgroundColor
+{
+    _labelBackGroundColor = backgroundColor ? : [UIColor blackColor];
+}
+
+-(void)setText:(NSString *)text {
+    _text = text;
+    if(!_usedSystemDefault){
+        self.bgImgView.backgroundColor = [UIColor clearColor];
+        self.bgImgView.layer.borderColor = [UIColor clearColor].CGColor;
+        self.bgImgView.layer.borderWidth = 0;
+        self.bgImgView.layer.borderWidth = self.borderWidth;
+        switch (self.labelType) {
+            case FMLabelType_Solid:
+            {
+                [self p_drawWithImage:nil];
+            }
+                break;
+            case FMLabelType_Hollow:
+            {
+                [self p_drawWithImage: [UIImage drawsolidRecInFrame:self.bgImgView.frame andfillWithColor:self.labelBackGroundColor]];
+            }
+                break;
+            default:
+                break;
+        }
     }else{
-        self.bgImgView.image = image;
+        switch (self.labelType) {
+            case FMLabelType_Solid:
+            {
+                self.bgImgView.backgroundColor = self.borderColor;
+                
+            }
+                break;
+            case FMLabelType_Hollow:
+            {
+                self.bgImgView.backgroundColor = [UIColor blackColor];
+            }
+                break;
+            default:
+                break;
+        }
+        self.bgImgView.layer.borderColor = self.borderColor.CGColor;
+        self.bgImgView.layer.borderWidth = self.borderWidth;
     }
 }
 
-#pragma draw
+#pragma mark draw
 -(void)p_drawWithImage:(UIImage *)img {
     [self.sentinel increase];
     int32_t value = self.sentinel.value;
     BOOL (^isCancelled)() = ^BOOL(){
-        return (value != self.sentinel.value) && (!self.image);
+        return (value != self.sentinel.value);
     };
     
     dispatch_async(YYAsyncLayerGetDisplayQueue(), ^{
@@ -116,8 +152,25 @@
                 return;
             }
             self.bgImgView.image = final;
+            [self p_drawText];
         });
     });
+}
+
+
+-(void)p_drawText {
+    [self.textLabel removeFromSuperview];
+    if(self.text.length > 0){
+        UILabel *label = [[UILabel alloc] initWithFrame:self.bgImgView.bounds];
+        label.font = [UIFont systemFontOfSize:14];
+        label.text = self.text;
+        label.textColor = self.textColor;
+        label.textAlignment = NSTextAlignmentCenter;
+        self.textLabel = label;
+        [self addSubview:self.textLabel];
+    }else{
+        self.textLabel.text = @"";
+    }
 }
 
 @end

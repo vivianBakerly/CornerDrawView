@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "IncreasedInfluence/FMRadiusImageView.m"
-            timestampString = "482137229.233549"
+            filePath = "IncreasedInfluence/FMRadiusLabel.m"
+            timestampString = "482142081.95969"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
-            landmarkName = "-p_drawWithImage:"
+            startingLineNumber = "170"
+            endingLineNumber = "170"
+            landmarkName = "-p_drawText"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
