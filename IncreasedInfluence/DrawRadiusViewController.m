@@ -16,8 +16,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [[FMRadiusImageView alloc] initWithFrame:CGRectMake(50, 50, 50, 50)];
+    CGFloat deviation = 100;;
+    FMRadiusImageView *radiusImg = [[FMRadiusImageView alloc] initWithFrame:CGRectMake(deviation, deviation, 50, 50)];
+    radiusImg.cornerRadius = 10;
+    radiusImg.borderColor = [UIColor yellowColor];
+    radiusImg.borderWidth = 2.0f;
+    radiusImg.image = [UIImage imageNamed:@"Avatar_2"];
+    [self.view addSubview:radiusImg];
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

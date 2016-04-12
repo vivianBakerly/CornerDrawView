@@ -8,10 +8,10 @@
 
 #import "YYSentinel.h"
 #import "FMRadiusImageView.h"
-#import "FMRadiusDrawProtocol.h"
+
 #import "UIImage+DrawRadius.h"
 
-@interface FMRadiusImageView() <FMRadiusDrawProtocol>
+@interface FMRadiusImageView()
 @property(nonatomic, strong)YYSentinel *sentinel;
 @property(nonatomic, strong)UIImageView *bgImgView;
 @end
@@ -20,30 +20,41 @@
 @synthesize cornerRadius = _cornerRadius;
 @synthesize borderWidth = _borderWidth;
 @synthesize borderColor = _borderColor;
+@synthesize usedSystemDefault = _usedSystemDefault;
 
 #pragma mark init
 -(instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if(self){
-        //
-        self.usedSystemDefault = NO;
-        //
-        
-        self.sentinel = [YYSentinel new];
-        //default property
-        self.borderColor = [UIColor clearColor];
-        self.borderWidth = 0.0f;
-        self.isCircle = NO;
-        self.bgImgView = [[UIImageView alloc] initWithFrame:self.bounds];
-        self.bgImgView.contentMode = UIViewContentModeScaleAspectFit;
-        [self addSubview:self.bgImgView];
+        [self initSettings];
     }
     return self;
 }
 
+-(instancetype)initWithFrame:(CGRect)frame andCornerRadius:(CGFloat)cornerRadius andBorderColor:(UIColor *)borderColor andWithBorderWidth:(CGFloat)borderWidth {
+    self = [super initWithFrame:frame];
+    if(self){
+        [self initSettings];
+        self.borderWidth = borderWidth;
+        self.borderColor = borderColor;
+        self.cornerRadius = cornerRadius;
+    }
+    return self;
+}
+
+- (void)initSettings
+{
+    self.sentinel = [YYSentinel new];
+    self.usedSystemDefault = NO;
+    self.isCircle = NO;
+    self.bgImgView = [[UIImageView alloc] initWithFrame:self.bounds];
+    self.bgImgView.contentMode = UIViewContentModeScaleAspectFit;
+}
+
 #pragma mark properties setting
--(void)setCornerRadius:(CGFloat)cornerRadius {
-    _cornerRadius = cornerRadius;
+- (void)setCornerRadius:(CGFloat)cornerRadius
+{
+    _cornerRadius = (cornerRadius >= 0) ? cornerRadius : 0;
     if(!self.usedSystemDefault){
         self.bgImgView.layer.cornerRadius = 0;
         self.bgImgView.layer.masksToBounds = NO;
@@ -53,7 +64,18 @@
     }
 }
 
--(void)setImage:(UIImage *)image {
+-(void)setBorderWidth:(CGFloat)borderWidth
+{
+    _borderWidth = (borderWidth >= 0) ? borderWidth : 0;
+}
+
+-(void)setBorderColor:(UIColor *)borderColor
+{
+    _borderColor = borderColor ? : [UIColor clearColor];
+}
+
+- (void)setImage:(UIImage *)image
+{
     _image = image;
     if(!self.usedSystemDefault){
         [self p_drawWithImage:image];
@@ -63,7 +85,8 @@
 }
 
 #pragma draw
--(void)p_drawWithImage:(UIImage *)img {
+-(void)p_drawWithImage:(UIImage *)img
+{
     [self.sentinel increase];
     int32_t value = self.sentinel.value;
     BOOL (^isCancelled)() = ^BOOL(){

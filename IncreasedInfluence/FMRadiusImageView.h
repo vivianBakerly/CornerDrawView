@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FMRadiusDrawProtocol.h"
 
-@interface FMRadiusImageView : UIView
+@interface FMRadiusImageView : UIView <FMRadiusDrawProtocol>
 
 @property(nonatomic, strong)UIImage *image;
 @property(nonatomic, assign) BOOL isCircle;

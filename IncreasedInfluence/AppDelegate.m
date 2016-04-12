@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ViewController.h"
+#import "DrawRadiusViewController.h"
 
 @interface AppDelegate ()
 
@@ -19,7 +20,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
-    ViewController *vc = [[ViewController alloc] init];
+//    ViewController *vc = [[ViewController alloc] init];
+    DrawRadiusViewController *vc = [[DrawRadiusViewController alloc] init];
     UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
     self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
