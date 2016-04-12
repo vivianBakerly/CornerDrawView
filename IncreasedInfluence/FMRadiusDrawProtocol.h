@@ -15,5 +15,6 @@
 @property(nonatomic)CGFloat borderWidth;
 
 @optional
+@property(nonatomic, assign) BOOL maskToBound;
 @property(nonatomic)BOOL usedSystemDefault;
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "DrawRadiusViewController.h"
-#import "CornerView.h"
+#import "FMRadiusImageView.h"
 @interface DrawRadiusViewController ()
 
 @end
@@ -16,6 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    [[FMRadiusImageView alloc] initWithFrame:CGRectMake(50, 50, 50, 50)];
 }
 
 - (void)didReceiveMemoryWarning {
