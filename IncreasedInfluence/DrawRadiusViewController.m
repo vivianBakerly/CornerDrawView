@@ -27,7 +27,7 @@
     [self.view addSubview:radiusImg];
     
     
-    
+    ///
     FMRadiusLabel *radiusLabel = [[FMRadiusLabel alloc] initWithFrame:CGRectMake(deviation * 2, deviation * 2, 100, 50)];
     radiusLabel.cornerRadius = 10;
     radiusLabel.borderWidth = 2;
