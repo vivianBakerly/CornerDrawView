@@ -66,7 +66,7 @@
 
 -(void)setBorderWidth:(CGFloat)borderWidth {
     _borderWidth = (borderWidth >= 0) ? borderWidth : 0;
-    ////
+    ///////
 }
 
 -(void)setBorderColor:(UIColor *)borderColor {
