@@ -59,6 +59,17 @@
     [self addSubview:self.resultImg];
 }
 
+#pragma mark override
+- (void)setNeedsDisplay
+{
+    [super setNeedsDisplay];
+}
+
+-(void)drawRect:(CGRect)rect
+{
+    [super drawRect:rect];
+}
+
 #pragma mark properties setting
 - (void)setCornerRadius:(CGFloat)cornerRadius {
     _cornerRadius = (cornerRadius >= 0) ? cornerRadius : 0;
@@ -128,12 +139,17 @@
     });
 }
 
--(BOOL)needDrawCornerBorderImage
+- (void)p_cancelAsyncDraw
+{
+    [self.sentinel increase];
+}
+
+- (BOOL)needDrawCornerBorderImage
 {
     return (self.borderWidth > 0);
 }
 
--(BOOL)needReDrawCornerBorderImage
+- (BOOL)needReDrawCornerBorderImage
 {
     return YES;
 }
