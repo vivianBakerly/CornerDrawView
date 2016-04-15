@@ -62,33 +62,44 @@
 #pragma mark override
 - (void)setNeedsDisplay
 {
+    [self p_cancelAsyncDraw];
     [super setNeedsDisplay];
 }
 
 -(void)drawRect:(CGRect)rect
 {
     [super drawRect:rect];
+    [self p_drawWithImage:self.image];
 }
 
 #pragma mark properties setting
 - (void)setCornerRadius:(CGFloat)cornerRadius {
-    _cornerRadius = (cornerRadius >= 0) ? cornerRadius : 0;
-    if(!self.usedSystemDefault){
-        self.resultImg.layer.cornerRadius = 0;
-        self.resultImg.layer.masksToBounds = NO;
-    }else{
-        self.resultImg.layer.cornerRadius = cornerRadius;
-        self.resultImg.layer.masksToBounds = YES;
+    if(cornerRadius != _cornerRadius){
+        _cornerRadius = (cornerRadius >= 0) ? cornerRadius : 0;
+        if(!self.usedSystemDefault){
+            self.resultImg.layer.cornerRadius = 0;
+            self.resultImg.layer.masksToBounds = NO;
+        }else{
+            self.resultImg.layer.cornerRadius = cornerRadius;
+            self.resultImg.layer.masksToBounds = YES;
+        }
+        [self setNeedsDisplay];
     }
 }
 
 -(void)setBorderWidth:(CGFloat)borderWidth {
-    _borderWidth = (borderWidth >= 0) ? borderWidth : 0;
+    if(_borderWidth != borderWidth){
+        _borderWidth = (borderWidth >= 0) ? borderWidth : 0;
+        [self setNeedsDisplay];
+    }
 }
 
 -(void)setBorderColor:(UIColor *)borderColor {
-    _borderColor = borderColor ? : [UIColor clearColor];
-}
+    if(borderColor != _borderColor){
+        _borderColor = borderColor ? : [UIColor clearColor];
+        [self setNeedsDisplay];
+    }
+ }
 
 - (void)setIsCircle:(BOOL)isCircle {
     _isCircle = isCircle;
