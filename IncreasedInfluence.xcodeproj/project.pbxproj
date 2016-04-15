@@ -100,6 +100,8 @@
 				FBFDF97E1C9FEE7C005F12FD /* AppDelegate.m */,
 				FBFDF9801C9FEE7C005F12FD /* ViewController.h */,
 				FBFDF9811C9FEE7C005F12FD /* ViewController.m */,
+				FBF8334C1CBB3F1600F1C7B7 /* DrawRadiusViewController.h */,
+				FBF8334D1CBB3F1600F1C7B7 /* DrawRadiusViewController.m */,
 				FBFDF9911C9FF3D5005F12FD /* IncTableViewCell.h */,
 				FBFDF9921C9FF3D5005F12FD /* IncTableViewCell.m */,
 				FBFDF9941C9FF531005F12FD /* CornerView.h */,
@@ -109,8 +111,6 @@
 				FBFDF9881C9FEE7C005F12FD /* LaunchScreen.storyboard */,
 				FBFDF98B1C9FEE7C005F12FD /* Info.plist */,
 				FBFDF97A1C9FEE7C005F12FD /* Supporting Files */,
-				FBF8334C1CBB3F1600F1C7B7 /* DrawRadiusViewController.h */,
-				FBF8334D1CBB3F1600F1C7B7 /* DrawRadiusViewController.m */,
 			);
 			path = IncreasedInfluence;
 			sourceTree = "<group>";
