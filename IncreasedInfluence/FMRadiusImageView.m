@@ -92,9 +92,11 @@
 
 - (void)setIsCircle:(BOOL)isCircle {
     _isCircle = isCircle;
-    CGSize size = self.bounds.size;
-    //取小的值, 避免裁剪过度
-    self.cornerRadius = (size.width <= size.height) ? size.width : size.height;
+    if(isCircle){
+        CGSize size = self.bounds.size;
+        //取小的值, 避免裁剪过度
+        self.cornerRadius = (size.width <= size.height) ? size.width : size.height;
+    }
 }
 
 - (void)setImage:(UIImage *)image {
