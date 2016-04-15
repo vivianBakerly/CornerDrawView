@@ -149,10 +149,10 @@
         CGRect drawFrame = self.resultImg.frame;
         //上层图片
         UIImage *final;
-        if(self.needReDrawCornerUserImage){
+//        if(self.needReDrawCornerUserImage){
             self.cornerUserImage = [UIImage drawCornerRadiusWithBgImg:img withBorderWidth:self.borderWidth andCorderRadius:self.cornerRadius inFrame:drawFrame];
-        }
-        if(self.needReDrawcornerBorderImage){
+//        }
+        if(self.borderWidth > 0){
             //下层图片，用于边框
             UIImage *bg = [UIImage drawCornerRadiusWithBgImg:[UIImage drawsolidRecInFrame:drawFrame andfillWithColor:self.borderColor] withBorderWidth:0 andCorderRadius:self.cornerRadius inFrame:drawFrame];
             self.cornerBorderImage = bg;
