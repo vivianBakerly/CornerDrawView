@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5EF76E151CC12D0600F912F9 /* YYSentinel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF76E141CC12D0600F912F9 /* YYSentinel.m */; };
 		FBAFF9B81CC10B1E00B3A47C /* FMSketchpadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAFF9B71CC10B1E00B3A47C /* FMSketchpadViewController.m */; };
 		FBF8334E1CBB3F1600F1C7B7 /* DrawRadiusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF8334D1CBB3F1600F1C7B7 /* DrawRadiusViewController.m */; };
 		FBF8335A1CBB4B7C00F1C7B7 /* FMRadiusImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF833591CBB4B7C00F1C7B7 /* FMRadiusImageView.m */; };
@@ -20,10 +21,11 @@
 		FBFDF98A1C9FEE7C005F12FD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBFDF9881C9FEE7C005F12FD /* LaunchScreen.storyboard */; };
 		FBFDF9931C9FF3D5005F12FD /* IncTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBFDF9921C9FF3D5005F12FD /* IncTableViewCell.m */; };
 		FBFDF9961C9FF531005F12FD /* CornerView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBFDF9951C9FF531005F12FD /* CornerView.m */; };
-		FBFDF9991C9FF5CF005F12FD /* YYSentinel.m in Sources */ = {isa = PBXBuildFile; fileRef = FBFDF9971C9FF5CF005F12FD /* YYSentinel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5EF76E131CC12D0600F912F9 /* YYSentinel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYSentinel.h; sourceTree = "<group>"; };
+		5EF76E141CC12D0600F912F9 /* YYSentinel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYSentinel.m; sourceTree = "<group>"; };
 		FBAFF9B61CC10B1E00B3A47C /* FMSketchpadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMSketchpadViewController.h; sourceTree = "<group>"; };
 		FBAFF9B71CC10B1E00B3A47C /* FMSketchpadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMSketchpadViewController.m; sourceTree = "<group>"; };
 		FBF8334C1CBB3F1600F1C7B7 /* DrawRadiusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawRadiusViewController.h; sourceTree = "<group>"; };
@@ -49,8 +51,6 @@
 		FBFDF9921C9FF3D5005F12FD /* IncTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncTableViewCell.m; sourceTree = "<group>"; };
 		FBFDF9941C9FF531005F12FD /* CornerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CornerView.h; sourceTree = "<group>"; };
 		FBFDF9951C9FF531005F12FD /* CornerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CornerView.m; sourceTree = "<group>"; };
-		FBFDF9971C9FF5CF005F12FD /* YYSentinel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YYSentinel.m; path = ../../../../../Desktop/YYSentinel.m; sourceTree = "<group>"; };
-		FBFDF9981C9FF5CF005F12FD /* YYSentinel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YYSentinel.h; path = ../../../../../Desktop/YYSentinel.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,8 +123,8 @@
 		FBFDF97A1C9FEE7C005F12FD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				FBFDF9971C9FF5CF005F12FD /* YYSentinel.m */,
-				FBFDF9981C9FF5CF005F12FD /* YYSentinel.h */,
+				5EF76E131CC12D0600F912F9 /* YYSentinel.h */,
+				5EF76E141CC12D0600F912F9 /* YYSentinel.m */,
 				FBFDF97B1C9FEE7C005F12FD /* main.m */,
 			);
 			name = "Supporting Files";
@@ -202,12 +202,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBFDF9961C9FF531005F12FD /* CornerView.m in Sources */,
-				FBFDF9991C9FF5CF005F12FD /* YYSentinel.m in Sources */,
 				FBFDF9821C9FEE7C005F12FD /* ViewController.m in Sources */,
 				FBF833631CBB8E5A00F1C7B7 /* UIImage+DrawRadius.m in Sources */,
 				FBAFF9B81CC10B1E00B3A47C /* FMSketchpadViewController.m in Sources */,
 				FBF8334E1CBB3F1600F1C7B7 /* DrawRadiusViewController.m in Sources */,
 				FBFDF97F1C9FEE7C005F12FD /* AppDelegate.m in Sources */,
+				5EF76E151CC12D0600F912F9 /* YYSentinel.m in Sources */,
 				FBFDF9931C9FF3D5005F12FD /* IncTableViewCell.m in Sources */,
 				FBFDF97C1C9FEE7C005F12FD /* main.m in Sources */,
 				FBF8335D1CBB4BDC00F1C7B7 /* FMRadiusLabel.m in Sources */,
@@ -323,6 +323,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = IncreasedInfluence/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bignerdranch.IncreasedInfluence;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -335,6 +336,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = IncreasedInfluence/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bignerdranch.IncreasedInfluence;
 				PRODUCT_NAME = "$(TARGET_NAME)";

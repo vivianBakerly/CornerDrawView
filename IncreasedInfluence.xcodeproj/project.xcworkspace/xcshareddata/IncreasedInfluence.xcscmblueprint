@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "A39020135032537A3AB92C44EA9702287AF6DB30",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "1348A3F3A9255948743B6F3B2B6D2B1CE3E2D839" : 0,
+    "A39020135032537A3AB92C44EA9702287AF6DB30" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "07604558-07D7-4E42-BCCB-41EBA21AB13F",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "1348A3F3A9255948743B6F3B2B6D2B1CE3E2D839" : "..\/YYKit",
+    "A39020135032537A3AB92C44EA9702287AF6DB30" : "PI_CornerDrawView\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "IncreasedInfluence",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "IncreasedInfluence.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ibireme\/YYKit.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1348A3F3A9255948743B6F3B2B6D2B1CE3E2D839"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/vivianBakerly\/PI_CornerDrawView.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A39020135032537A3AB92C44EA9702287AF6DB30"
+    }
+  ]
+}
