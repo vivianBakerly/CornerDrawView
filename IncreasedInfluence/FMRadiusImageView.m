@@ -175,7 +175,7 @@
     [self.sentinel increase];
 }
 
-- (BOOL)needDrawCornerBorderImage
+- (BOOL)needReDrawcornerBorderImage
 {
     return (self.borderWidth > 0);
 }

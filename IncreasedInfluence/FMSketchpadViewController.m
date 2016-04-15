@@ -7,6 +7,7 @@
 //
 
 #import "FMSketchpadViewController.h"
+#import "FMRadiusImageView.h"
 
 static const CGFloat kSketchpadGap = 50;
 
@@ -15,6 +16,7 @@ static const CGFloat kSketchpadGap = 50;
 @property(nonatomic, strong) UIView *sketchpadView;
 @property(nonatomic, strong) UITextView *radiusTextView;
 @property(nonatomic, strong) UITextView *borderWidthTextView;
+@property(nonatomic, strong) FMRadiusImageView *radiusImageView;
 
 @end
 @implementation FMSketchpadViewController
@@ -22,11 +24,12 @@ static const CGFloat kSketchpadGap = 50;
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    [self initViews];
+    [self initNormalViews];
+    [self initRadiusViews];
 }
 
-
-- (void)initViews
+#pragma mark init methods
+- (void)initNormalViews
 {
     CGFloat sketchPadWidth = [UIScreen mainScreen].bounds.size.width - 2 * kSketchpadGap;
     self.sketchpadView = [[UIView alloc] initWithFrame:CGRectMake(kSketchpadGap, kSketchpadGap + self.navigationController.navigationBar.frame.size.height, sketchPadWidth, sketchPadWidth)];
@@ -55,5 +58,15 @@ static const CGFloat kSketchpadGap = 50;
     self.borderWidthTextView.backgroundColor = [UIColor grayColor];
     [self.view addSubview:self.radiusTextView];
     [self.view addSubview:self.borderWidthTextView];
+}
+
+- (void)initRadiusViews
+{
+    self.radiusImageView = [[FMRadiusImageView alloc] initWithFrame:self.sketchpadView.frame];
+    self.radiusImageView.cornerRadius = 0;
+    self.radiusImageView.borderColor = [UIColor yellowColor];
+    self.radiusImageView.borderWidth = 10.0f;
+    self.radiusImageView.image =  [UIImage imageNamed:@"Avatar_2"];
+    [self.view addSubview:self.radiusImageView];
 }
 @end
