@@ -10,6 +10,11 @@
 #import "FMRadiusImageView.h"
 #import "UIImage+DrawRadius.h"
 
+/**
+ *  tbd:取消时机
+ *  两张图的绘制条件
+ */
+
 @interface FMRadiusImageView()
 @property(nonatomic, strong)YYSentinel *sentinel;
 @property(nonatomic, strong)UIImageView *resultImg;
@@ -20,6 +25,7 @@
 @property(nonatomic, strong)UIImage *cornerUserImage;
 
 @property(nonatomic, assign)BOOL needReDrawCornerUserImage;
+@property(nonatomic, assign)BOOL needReDrawcornerBorderImage;
 
 @end
 @implementation FMRadiusImageView
@@ -83,6 +89,8 @@
             self.resultImg.layer.cornerRadius = cornerRadius;
             self.resultImg.layer.masksToBounds = YES;
         }
+        self.needReDrawCornerUserImage = YES;
+        self.needReDrawcornerBorderImage = YES;
         [self setNeedsDisplay];
     }
 }
@@ -90,6 +98,8 @@
 -(void)setBorderWidth:(CGFloat)borderWidth {
     if(_borderWidth != borderWidth){
         _borderWidth = (borderWidth >= 0) ? borderWidth : 0;
+        self.needReDrawCornerUserImage = YES;
+        self.needReDrawcornerBorderImage = NO;
         [self setNeedsDisplay];
     }
 }
@@ -97,7 +107,12 @@
 -(void)setBorderColor:(UIColor *)borderColor {
     if(borderColor != _borderColor){
         _borderColor = borderColor ? : [UIColor clearColor];
-        [self setNeedsDisplay];
+        //当有宽度时才重新绘制
+        if(_borderWidth > 0){
+            self.needReDrawCornerUserImage = NO;
+            self.needReDrawcornerBorderImage = YES;
+            [self setNeedsDisplay];
+        }
     }
  }
 
@@ -133,16 +148,19 @@
         }
         CGRect drawFrame = self.resultImg.frame;
         //上层图片
-        UIImage *topImg = [UIImage drawCornerRadiusWithBgImg:img withBorderWidth:self.borderWidth andCorderRadius:self.cornerRadius inFrame:drawFrame];
         UIImage *final;
         if(self.needReDrawCornerUserImage){
+            self.cornerUserImage = [UIImage drawCornerRadiusWithBgImg:img withBorderWidth:self.borderWidth andCorderRadius:self.cornerRadius inFrame:drawFrame];
+        }
+        if(self.needReDrawcornerBorderImage){
             //下层图片，用于边框
             UIImage *bg = [UIImage drawCornerRadiusWithBgImg:[UIImage drawsolidRecInFrame:drawFrame andfillWithColor:self.borderColor] withBorderWidth:0 andCorderRadius:self.cornerRadius inFrame:drawFrame];
             self.cornerBorderImage = bg;
-            final = [UIImage mixTopImg:topImg withBgImg:bg inFrame:drawFrame WithBorderWidth:self.borderWidth];
+            final = [UIImage mixTopImg:self.cornerUserImage withBgImg:bg inFrame:drawFrame WithBorderWidth:self.borderWidth];
         }else{
-            final = topImg;
+            final = self.cornerUserImage;
         }
+        
         dispatch_async(dispatch_get_main_queue(), ^(void) {
             if (isCancelled()) {
                 return;

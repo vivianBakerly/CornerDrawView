@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FBAFF9B81CC10B1E00B3A47C /* FMSketchpadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAFF9B71CC10B1E00B3A47C /* FMSketchpadViewController.m */; };
 		FBF8334E1CBB3F1600F1C7B7 /* DrawRadiusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF8334D1CBB3F1600F1C7B7 /* DrawRadiusViewController.m */; };
 		FBF8335A1CBB4B7C00F1C7B7 /* FMRadiusImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF833591CBB4B7C00F1C7B7 /* FMRadiusImageView.m */; };
 		FBF8335D1CBB4BDC00F1C7B7 /* FMRadiusLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF8335C1CBB4BDC00F1C7B7 /* FMRadiusLabel.m */; };
@@ -23,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FBAFF9B61CC10B1E00B3A47C /* FMSketchpadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMSketchpadViewController.h; sourceTree = "<group>"; };
+		FBAFF9B71CC10B1E00B3A47C /* FMSketchpadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMSketchpadViewController.m; sourceTree = "<group>"; };
 		FBF8334C1CBB3F1600F1C7B7 /* DrawRadiusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawRadiusViewController.h; sourceTree = "<group>"; };
 		FBF8334D1CBB3F1600F1C7B7 /* DrawRadiusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawRadiusViewController.m; sourceTree = "<group>"; };
 		FBF833551CBB42B400F1C7B7 /* FMRadiusDrawProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMRadiusDrawProtocol.h; sourceTree = "<group>"; };
@@ -102,6 +105,8 @@
 				FBFDF9811C9FEE7C005F12FD /* ViewController.m */,
 				FBF8334C1CBB3F1600F1C7B7 /* DrawRadiusViewController.h */,
 				FBF8334D1CBB3F1600F1C7B7 /* DrawRadiusViewController.m */,
+				FBAFF9B61CC10B1E00B3A47C /* FMSketchpadViewController.h */,
+				FBAFF9B71CC10B1E00B3A47C /* FMSketchpadViewController.m */,
 				FBFDF9911C9FF3D5005F12FD /* IncTableViewCell.h */,
 				FBFDF9921C9FF3D5005F12FD /* IncTableViewCell.m */,
 				FBFDF9941C9FF531005F12FD /* CornerView.h */,
@@ -200,6 +205,7 @@
 				FBFDF9991C9FF5CF005F12FD /* YYSentinel.m in Sources */,
 				FBFDF9821C9FEE7C005F12FD /* ViewController.m in Sources */,
 				FBF833631CBB8E5A00F1C7B7 /* UIImage+DrawRadius.m in Sources */,
+				FBAFF9B81CC10B1E00B3A47C /* FMSketchpadViewController.m in Sources */,
 				FBF8334E1CBB3F1600F1C7B7 /* DrawRadiusViewController.m in Sources */,
 				FBFDF97F1C9FEE7C005F12FD /* AppDelegate.m in Sources */,
 				FBFDF9931C9FF3D5005F12FD /* IncTableViewCell.m in Sources */,
