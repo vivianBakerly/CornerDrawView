@@ -128,7 +128,7 @@
 - (void)setImage:(UIImage *)image {
     _image = image;
     if(!self.usedSystemDefault){
-        [self p_drawWithImage:image];
+        [self setNeedsDisplay];
     }else{
         self.resultImg.image = image;
     }
