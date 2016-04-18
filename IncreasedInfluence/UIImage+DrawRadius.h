@@ -13,4 +13,6 @@
 + (UIImage *)drawCornerRadiusWithBgImg:(UIImage *)img withBorderWidth:(CGFloat)borderWidth andCorderRadius:(CGFloat)cornerRadius inFrame:(CGRect)frame;
 + (UIImage *)drawsolidRecInFrame:(CGRect)frame andfillWithColor:(UIColor *)color;
 + (UIImage *)mixTopImg:(UIImage *)topImg withBgImg:(UIImage *)bg inFrame:(CGRect)frame WithBorderWidth:(CGFloat)borderWidth;
+
++ (int)randomNumberStartFrom: (int)base ToEnd: (int)top;
 @end

@@ -20,6 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self p_settingNavRightBtn];
+    [self p_settingNavTitle];
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -40,9 +41,18 @@
     self.navigationItem.rightBarButtonItem = rightBtn;
 }
 
+- (void)p_settingNavTitle
+{
+    if(self.useSystemDefault){
+        self.navigationController.title = @"System";
+    }else{
+        self.navigationController.title = @"Custom Define";
+    }
+}
 - (void)p_changeMode
 {
     _useSystemDefault = !_useSystemDefault;
+    [self.tableView reloadData];
 }
 
 #pragma mark tableView protocol
@@ -53,7 +63,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 100;
+    return 200;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -63,8 +73,13 @@
     if(cell == nil){
         cell = [[FMComparisonCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
-    
-    [cell setupItem];
+    [cell setupItemWithSwitcher:self.useSystemDefault];
     return cell;
 }
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [FMComparisonCell heightForRow];
+}
+
 @end

@@ -12,5 +12,6 @@
 
 +(NSString *)identifier;
 +(CGFloat)heightForRow;
--(void)setupItem;
+
+-(void)setupItemWithSwitcher:(BOOL)useSystemDefault;
 @end

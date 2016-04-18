@@ -22,8 +22,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
 //    ViewController *vc = [[ViewController alloc] init];
-//    DrawRadiusViewController *vc = [[DrawRadiusViewController alloc] init];
-    FMSketchpadViewController *vc = [[FMSketchpadViewController alloc] init];
+    DrawRadiusViewController *vc = [[DrawRadiusViewController alloc] init];
+//    FMSketchpadViewController *vc = [[FMSketchpadViewController alloc] init];
     UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
     self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];

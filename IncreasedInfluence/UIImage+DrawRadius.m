@@ -48,4 +48,11 @@
     UIGraphicsEndImageContext();
     return final;
 }
+
++ (int)randomNumberStartFrom: (int)base ToEnd: (int)top {
+    if(base >= top){
+        return base;
+    }
+    return (arc4random() % top) + base;
+}
 @end
