@@ -23,10 +23,10 @@
 @property(nonatomic, strong)UIImage *cornerBorderImage;
 //frame, cornerRadius, borderWidth决定是否重新绘制
 @property(nonatomic, strong)UIImage *cornerUserImage;
+@property(nonatomic, strong)NSMutableDictionary *cachedVariables;
 
-//@property(nonatomic, assign)BOOL needReDrawCornerUserImage;
-//@property(nonatomic, assign)BOOL needReDrawcornerBorderImage;
-
+@property(nonatomic, assign)BOOL needRedrawUserImage;
+@property(nonatomic, assign)BOOL needRedrawCornerImage;
 @end
 @implementation FMRadiusImageView
 
@@ -57,6 +57,7 @@
 
 - (void)initSettings {
     self.sentinel = [YYSentinel new];
+    self.cachedVariables = [NSMutableDictionary new];
     self.usedSystemDefault = NO;
     self.isCircle = NO;
     self.borderColor = [UIColor clearColor];
@@ -64,9 +65,6 @@
     self.resultImg.contentMode = UIViewContentModeScaleAspectFit;
     self.backgroundColor = [UIColor clearColor];
     [self addSubview:self.resultImg];
-    
-//    self.needReDrawCornerUserImage = NO;
-//    self.needReDrawcornerBorderImage = NO;
 }
 
 #pragma mark override
@@ -90,8 +88,6 @@
 - (void)setCornerRadius:(CGFloat)cornerRadius {
     if(cornerRadius != _cornerRadius && (cornerRadius >= 0)){
         _cornerRadius = cornerRadius;
-//        self.needReDrawCornerUserImage = YES;
-//        self.needReDrawcornerBorderImage = YES;
         if(!self.usedSystemDefault){
             [self setNeedsDisplay];
         }
@@ -101,7 +97,6 @@
 -(void)setBorderWidth:(CGFloat)borderWidth {
     if(_borderWidth != borderWidth && borderWidth >= 0){
         _borderWidth = borderWidth;
-//        self.needReDrawCornerUserImage = YES;
         if(!self.usedSystemDefault){
             [self setNeedsDisplay];
         }
@@ -113,7 +108,6 @@
         _borderColor = borderColor ? : [UIColor clearColor];
         //颜色改变且有宽度时才绘制
         if(_borderWidth > 0){
-//            self.needReDrawcornerBorderImage = YES;
               if(!self.usedSystemDefault){
                   [self setNeedsDisplay];
               }
@@ -148,17 +142,16 @@
 - (void)setImage:(UIImage *)image {
     _image = image;
     if(!self.usedSystemDefault){
-//        self.needReDrawCornerUserImage = YES;
        [self setNeedsDisplay];
     }else{
         self.resultImg.image = image;
-        NSLog(@"SystemDefault: CornerRadius = %f, BorderWidth = %f", self.cornerRadius, self.borderWidth);
+//        NSLog(@"SystemDefault: CornerRadius = %f, BorderWidth = %f", self.cornerRadius, self.borderWidth);
     }
 }
 
 #pragma draw
 -(void)p_drawWithImage:(UIImage *)img {
-    [self.sentinel increase];
+//    [self.sentinel increase];
     int32_t value = self.sentinel.value;
     BOOL (^isCancelled)() = ^BOOL(){
         return (value != self.sentinel.value) && (!self.image);
@@ -171,13 +164,11 @@
         CGRect drawFrame = self.resultImg.frame;
         //上层图片
         UIImage *final;
-//        UIImage *top = (self.needReDrawCornerUserImage) ?  [UIImage drawCornerRadiusWithBgImg:img withBorderWidth:self.borderWidth andCorderRadius:self.cornerRadius inFrame:drawFrame] : nil;
-        UIImage *top = [UIImage drawCornerRadiusWithBgImg:img withBorderWidth:self.borderWidth andCorderRadius:self.cornerRadius inFrame:drawFrame];
+        UIImage *top = (self.needRedrawUserImage) ?  [UIImage drawCornerRadiusWithBgImg:img withBorderWidth:self.borderWidth andCorderRadius:self.cornerRadius inFrame:drawFrame] : self.cornerUserImage;
         UIImage *bg;
-//        if(self.borderWidth > 0 && self.needReDrawcornerBorderImage){
          if(self.borderWidth > 0){
             //下层图片，用于边框
-            bg = [UIImage drawCornerRadiusWithBgImg:[UIImage drawsolidRecInFrame:drawFrame andfillWithColor:self.borderColor] withBorderWidth:0 andCorderRadius:self.cornerRadius inFrame:drawFrame];
+             bg = (self.needRedrawCornerImage) ? [UIImage drawCornerRadiusWithBgImg:[UIImage drawsolidRecInFrame:drawFrame andfillWithColor:self.borderColor] withBorderWidth:0 andCorderRadius:self.cornerRadius inFrame:drawFrame] : self.cornerBorderImage;
             final = [UIImage mixTopImg:top withBgImg:bg inFrame:drawFrame WithBorderWidth:self.borderWidth];
         }else{
             final = top;
@@ -189,13 +180,53 @@
             self.resultImg.image = final;
             self.cornerUserImage = top;
             self.cornerBorderImage = bg;
-//            self.needReDrawcornerBorderImage = NO;
-//            self.needReDrawCornerUserImage = NO;
-            NSLog(@"CustomDefine: CornerRadius = %f, BorderWidth = %f", self.cornerRadius, self.borderWidth);
+            [self cachedCurrentVariables];
+//            NSLog(@"CustomDefine: CornerRadius = %f, BorderWidth = %f", self.cornerRadius, self.borderWidth);
         });
     });
 }
 
+- (void)cachedCurrentVariables
+{
+    self.cachedVariables[RadiusKBorderColor] = self.borderColor;
+    self.cachedVariables[RadiusKBorderWidth] = @(self.borderWidth);
+    self.cachedVariables[RadiusKFrame] = [NSValue valueWithCGRect:self.frame];
+    self.cachedVariables[RadiusKCornerRadius] = @(self.cornerRadius);
+}
+
+-(BOOL)needRedrawUserImage {
+    if([self.cachedVariables[RadiusKCornerRadius] floatValue] != self.cornerRadius){
+        return YES;
+    }
+    
+    CGRect a = [self.cachedVariables[RadiusKFrame] CGRectValue];
+    if(!CGSizeEqualToSize(a.size, self.frame.size) || !CGPointEqualToPoint(a.origin, self.frame.origin)){
+        return YES;
+    }
+    
+    if([self.cachedVariables[RadiusKBorderWidth] floatValue] != self.borderWidth){
+        return YES;
+    }
+    
+    return NO;
+}
+
+//tbd: borderWidth
+- (BOOL)needRedrawCornerImage {
+    if([self.cachedVariables[RadiusKCornerRadius] floatValue] != self.cornerRadius){
+        return YES;
+    }
+    
+    CGRect a = [self.cachedVariables[RadiusKFrame] CGRectValue];
+    if(!CGSizeEqualToSize(a.size, self.frame.size) || !CGPointEqualToPoint(a.origin, self.frame.origin)){
+        return YES;
+    }
+    
+    if(self.cachedVariables[RadiusKBorderColor] != self.borderColor){
+        return YES;
+    }
+    return NO;
+}
 - (void)p_cancelAsyncDraw
 {
     [self.sentinel increase];
