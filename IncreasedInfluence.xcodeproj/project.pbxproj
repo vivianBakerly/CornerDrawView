@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5EF76E151CC12D0600F912F9 /* YYSentinel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF76E141CC12D0600F912F9 /* YYSentinel.m */; };
+		FB8EF5FD1CC49B1100A3F1D0 /* FMComparisonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8EF5FC1CC49B1100A3F1D0 /* FMComparisonCell.m */; };
 		FBAFF9B81CC10B1E00B3A47C /* FMSketchpadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAFF9B71CC10B1E00B3A47C /* FMSketchpadViewController.m */; };
 		FBF8334E1CBB3F1600F1C7B7 /* DrawRadiusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF8334D1CBB3F1600F1C7B7 /* DrawRadiusViewController.m */; };
 		FBF8335A1CBB4B7C00F1C7B7 /* FMRadiusImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF833591CBB4B7C00F1C7B7 /* FMRadiusImageView.m */; };
@@ -24,12 +25,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5EF76E131CC12D0600F912F9 /* YYSentinel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYSentinel.h; sourceTree = "<group>"; };
-		5EF76E141CC12D0600F912F9 /* YYSentinel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYSentinel.m; sourceTree = "<group>"; };
-		FBAFF9B61CC10B1E00B3A47C /* FMSketchpadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMSketchpadViewController.h; sourceTree = "<group>"; };
-		FBAFF9B71CC10B1E00B3A47C /* FMSketchpadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMSketchpadViewController.m; sourceTree = "<group>"; };
-		FBF8334C1CBB3F1600F1C7B7 /* DrawRadiusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawRadiusViewController.h; sourceTree = "<group>"; };
-		FBF8334D1CBB3F1600F1C7B7 /* DrawRadiusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawRadiusViewController.m; sourceTree = "<group>"; };
+		5EF76E131CC12D0600F912F9 /* YYSentinel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YYSentinel.h; path = IncreasedInfluence/YYSentinel.h; sourceTree = "<group>"; };
+		5EF76E141CC12D0600F912F9 /* YYSentinel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YYSentinel.m; path = IncreasedInfluence/YYSentinel.m; sourceTree = "<group>"; };
+		FB8EF5F61CC498F100A3F1D0 /* CornerRadiusMicro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CornerRadiusMicro.h; sourceTree = "<group>"; };
+		FB8EF5FB1CC49B1100A3F1D0 /* FMComparisonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMComparisonCell.h; sourceTree = "<group>"; };
+		FB8EF5FC1CC49B1100A3F1D0 /* FMComparisonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMComparisonCell.m; sourceTree = "<group>"; };
+		FBAFF9B61CC10B1E00B3A47C /* FMSketchpadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMSketchpadViewController.h; path = IncreasedInfluence/FMSketchpadViewController.h; sourceTree = "<group>"; };
+		FBAFF9B71CC10B1E00B3A47C /* FMSketchpadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMSketchpadViewController.m; path = IncreasedInfluence/FMSketchpadViewController.m; sourceTree = "<group>"; };
+		FBF8334C1CBB3F1600F1C7B7 /* DrawRadiusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DrawRadiusViewController.h; path = IncreasedInfluence/DrawRadiusViewController.h; sourceTree = "<group>"; };
+		FBF8334D1CBB3F1600F1C7B7 /* DrawRadiusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawRadiusViewController.m; path = IncreasedInfluence/DrawRadiusViewController.m; sourceTree = "<group>"; };
 		FBF833551CBB42B400F1C7B7 /* FMRadiusDrawProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMRadiusDrawProtocol.h; sourceTree = "<group>"; };
 		FBF833581CBB4B7C00F1C7B7 /* FMRadiusImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMRadiusImageView.h; sourceTree = "<group>"; };
 		FBF833591CBB4B7C00F1C7B7 /* FMRadiusImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMRadiusImageView.m; sourceTree = "<group>"; };
@@ -39,18 +43,18 @@
 		FBF833621CBB8E5A00F1C7B7 /* UIImage+DrawRadius.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DrawRadius.m"; sourceTree = "<group>"; };
 		FBFDF9771C9FEE7C005F12FD /* IncreasedInfluence.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IncreasedInfluence.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBFDF97B1C9FEE7C005F12FD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		FBFDF97D1C9FEE7C005F12FD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		FBFDF97E1C9FEE7C005F12FD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		FBFDF9801C9FEE7C005F12FD /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		FBFDF9811C9FEE7C005F12FD /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		FBFDF97D1C9FEE7C005F12FD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = IncreasedInfluence/AppDelegate.h; sourceTree = "<group>"; };
+		FBFDF97E1C9FEE7C005F12FD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = IncreasedInfluence/AppDelegate.m; sourceTree = "<group>"; };
+		FBFDF9801C9FEE7C005F12FD /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = IncreasedInfluence/ViewController.h; sourceTree = "<group>"; };
+		FBFDF9811C9FEE7C005F12FD /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = IncreasedInfluence/ViewController.m; sourceTree = "<group>"; };
 		FBFDF9841C9FEE7C005F12FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FBFDF9861C9FEE7C005F12FD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FBFDF9891C9FEE7C005F12FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FBFDF98B1C9FEE7C005F12FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FBFDF9911C9FF3D5005F12FD /* IncTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IncTableViewCell.h; sourceTree = "<group>"; };
-		FBFDF9921C9FF3D5005F12FD /* IncTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncTableViewCell.m; sourceTree = "<group>"; };
-		FBFDF9941C9FF531005F12FD /* CornerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CornerView.h; sourceTree = "<group>"; };
-		FBFDF9951C9FF531005F12FD /* CornerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CornerView.m; sourceTree = "<group>"; };
+		FBFDF9911C9FF3D5005F12FD /* IncTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IncTableViewCell.h; path = IncreasedInfluence/IncTableViewCell.h; sourceTree = "<group>"; };
+		FBFDF9921C9FF3D5005F12FD /* IncTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IncTableViewCell.m; path = IncreasedInfluence/IncTableViewCell.m; sourceTree = "<group>"; };
+		FBFDF9941C9FF531005F12FD /* CornerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CornerView.h; path = IncreasedInfluence/CornerView.h; sourceTree = "<group>"; };
+		FBFDF9951C9FF531005F12FD /* CornerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CornerView.m; path = IncreasedInfluence/CornerView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +68,60 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FB8EF5F41CC48E7B00A3F1D0 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				FBFDF97D1C9FEE7C005F12FD /* AppDelegate.h */,
+				FBFDF97E1C9FEE7C005F12FD /* AppDelegate.m */,
+				5EF76E131CC12D0600F912F9 /* YYSentinel.h */,
+				5EF76E141CC12D0600F912F9 /* YYSentinel.m */,
+				FB8EF5F61CC498F100A3F1D0 /* CornerRadiusMicro.h */,
+			);
+			name = Base;
+			sourceTree = "<group>";
+		};
+		FB8EF5F71CC49A6E00A3F1D0 /* Sketchpad */ = {
+			isa = PBXGroup;
+			children = (
+				FBAFF9B61CC10B1E00B3A47C /* FMSketchpadViewController.h */,
+				FBAFF9B71CC10B1E00B3A47C /* FMSketchpadViewController.m */,
+			);
+			name = Sketchpad;
+			sourceTree = "<group>";
+		};
+		FB8EF5F81CC49AA400A3F1D0 /* Comparison */ = {
+			isa = PBXGroup;
+			children = (
+				FB8EF5FA1CC49AED00A3F1D0 /* Cell */,
+				FB8EF5F91CC49AE000A3F1D0 /* VC */,
+			);
+			name = Comparison;
+			sourceTree = "<group>";
+		};
+		FB8EF5F91CC49AE000A3F1D0 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				FBFDF9801C9FEE7C005F12FD /* ViewController.h */,
+				FBFDF9811C9FEE7C005F12FD /* ViewController.m */,
+				FBF8334C1CBB3F1600F1C7B7 /* DrawRadiusViewController.h */,
+				FBF8334D1CBB3F1600F1C7B7 /* DrawRadiusViewController.m */,
+			);
+			name = VC;
+			sourceTree = "<group>";
+		};
+		FB8EF5FA1CC49AED00A3F1D0 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				FBFDF9941C9FF531005F12FD /* CornerView.h */,
+				FBFDF9951C9FF531005F12FD /* CornerView.m */,
+				FBFDF9911C9FF3D5005F12FD /* IncTableViewCell.h */,
+				FBFDF9921C9FF3D5005F12FD /* IncTableViewCell.m */,
+				FB8EF5FB1CC49B1100A3F1D0 /* FMComparisonCell.h */,
+				FB8EF5FC1CC49B1100A3F1D0 /* FMComparisonCell.m */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
 		FBF8334F1CBB407200F1C7B7 /* CornerDrawView */ = {
 			isa = PBXGroup;
 			children = (
@@ -82,7 +140,10 @@
 		FBFDF96E1C9FEE7C005F12FD = {
 			isa = PBXGroup;
 			children = (
+				FB8EF5F41CC48E7B00A3F1D0 /* Base */,
 				FBF8334F1CBB407200F1C7B7 /* CornerDrawView */,
+				FB8EF5F81CC49AA400A3F1D0 /* Comparison */,
+				FB8EF5F71CC49A6E00A3F1D0 /* Sketchpad */,
 				FBFDF9791C9FEE7C005F12FD /* IncreasedInfluence */,
 				FBFDF9781C9FEE7C005F12FD /* Products */,
 			);
@@ -99,18 +160,6 @@
 		FBFDF9791C9FEE7C005F12FD /* IncreasedInfluence */ = {
 			isa = PBXGroup;
 			children = (
-				FBFDF97D1C9FEE7C005F12FD /* AppDelegate.h */,
-				FBFDF97E1C9FEE7C005F12FD /* AppDelegate.m */,
-				FBFDF9801C9FEE7C005F12FD /* ViewController.h */,
-				FBFDF9811C9FEE7C005F12FD /* ViewController.m */,
-				FBF8334C1CBB3F1600F1C7B7 /* DrawRadiusViewController.h */,
-				FBF8334D1CBB3F1600F1C7B7 /* DrawRadiusViewController.m */,
-				FBAFF9B61CC10B1E00B3A47C /* FMSketchpadViewController.h */,
-				FBAFF9B71CC10B1E00B3A47C /* FMSketchpadViewController.m */,
-				FBFDF9911C9FF3D5005F12FD /* IncTableViewCell.h */,
-				FBFDF9921C9FF3D5005F12FD /* IncTableViewCell.m */,
-				FBFDF9941C9FF531005F12FD /* CornerView.h */,
-				FBFDF9951C9FF531005F12FD /* CornerView.m */,
 				FBFDF9831C9FEE7C005F12FD /* Main.storyboard */,
 				FBFDF9861C9FEE7C005F12FD /* Assets.xcassets */,
 				FBFDF9881C9FEE7C005F12FD /* LaunchScreen.storyboard */,
@@ -123,8 +172,6 @@
 		FBFDF97A1C9FEE7C005F12FD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				5EF76E131CC12D0600F912F9 /* YYSentinel.h */,
-				5EF76E141CC12D0600F912F9 /* YYSentinel.m */,
 				FBFDF97B1C9FEE7C005F12FD /* main.m */,
 			);
 			name = "Supporting Files";
@@ -208,6 +255,7 @@
 				FBF8334E1CBB3F1600F1C7B7 /* DrawRadiusViewController.m in Sources */,
 				FBFDF97F1C9FEE7C005F12FD /* AppDelegate.m in Sources */,
 				5EF76E151CC12D0600F912F9 /* YYSentinel.m in Sources */,
+				FB8EF5FD1CC49B1100A3F1D0 /* FMComparisonCell.m in Sources */,
 				FBFDF9931C9FF3D5005F12FD /* IncTableViewCell.m in Sources */,
 				FBFDF97C1C9FEE7C005F12FD /* main.m in Sources */,
 				FBF8335D1CBB4BDC00F1C7B7 /* FMRadiusLabel.m in Sources */,
