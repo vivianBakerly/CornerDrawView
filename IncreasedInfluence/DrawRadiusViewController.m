@@ -44,14 +44,15 @@
 - (void)p_settingNavTitle
 {
     if(self.useSystemDefault){
-        self.navigationController.title = @"System";
+        self.title = @"System";
     }else{
-        self.navigationController.title = @"Custom Define";
+        self.title = @"Custom";
     }
 }
 - (void)p_changeMode
 {
     _useSystemDefault = !_useSystemDefault;
+    [self p_settingNavTitle];
     [self.tableView reloadData];
 }
 
@@ -72,6 +73,7 @@
     FMComparisonCell *cell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
     if(cell == nil){
         cell = [[FMComparisonCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell.backgroundColor = [UIColor grayColor];
     }
     [cell setupItemWithSwitcher:self.useSystemDefault];
     return cell;

@@ -7,9 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
-#import "DrawRadiusViewController.h"
-#import "FMSketchpadViewController.h"
+#import "FMEntryViewController.h"
 
 @interface AppDelegate ()
 
@@ -20,10 +18,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    
-//    ViewController *vc = [[ViewController alloc] init];
-    DrawRadiusViewController *vc = [[DrawRadiusViewController alloc] init];
-//    FMSketchpadViewController *vc = [[FMSketchpadViewController alloc] init];
+    FMEntryViewController *vc = [[FMEntryViewController alloc] init];
     UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
     self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];

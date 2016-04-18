@@ -115,8 +115,8 @@
 }
 
 - (void)setupAvatar {
-    self.avatar_1.borderWidth = 1;
-    self.avatar_2.borderWidth = 1;
+    self.avatar_1.borderWidth = 5;
+    self.avatar_2.borderWidth = 5;
     NSString *avaName = [[NSString alloc] initWithFormat:@"Avatar_%d", [self randomNumberStartFrom:0 ToEnd:3]];
     self.avatar_1.cornerRadius = AVATAR_WIDTH / 2;
     self.avatar_1.backgroundImage = [UIImage imageNamed:avaName];

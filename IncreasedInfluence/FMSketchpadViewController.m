@@ -30,6 +30,7 @@ static const CGFloat kSketchpadGap = 50;
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor blackColor];
     [self initNormalViews];
     [self initRadiusViews];
     [self initColorSwitcher];
@@ -37,12 +38,16 @@ static const CGFloat kSketchpadGap = 50;
     [self addGesture];
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 #pragma mark init methods
 - (void)initNormalViews
 {
     CGFloat sketchPadWidth = [UIScreen mainScreen].bounds.size.width - 2 * kSketchpadGap;
     self.sketchpadView = [[UIView alloc] initWithFrame:CGRectMake(kSketchpadGap, kSketchpadGap + self.navigationController.navigationBar.frame.size.height, sketchPadWidth, sketchPadWidth)];
-    self.sketchpadView.backgroundColor = [UIColor whiteColor];
+    self.sketchpadView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.sketchpadView];
     
     CGFloat textViewHeight = 30;
@@ -75,7 +80,7 @@ static const CGFloat kSketchpadGap = 50;
 - (void)initRadiusViews
 {
     self.radiusImageView = [[FMRadiusImageView alloc] initWithFrame:self.sketchpadView.frame];
-    self.radiusImageView.cornerRadius = 0;
+    self.radiusImageView.cornerRadius = 20;
     self.radiusImageView.borderColor = [UIColor yellowColor];
     self.radiusImageView.borderWidth = 10.0f;
     self.radiusImageView.image =  [UIImage imageNamed:@"Avatar_2"];

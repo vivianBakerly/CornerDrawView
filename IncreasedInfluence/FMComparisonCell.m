@@ -36,8 +36,8 @@ static const CGFloat kGapBetweenElement = 5;
         NSMutableArray *tempArray = [NSMutableArray new];
         for(int i = 0; i < kElementInRow ; i++){
             FMRadiusImageView *imgView = [[FMRadiusImageView alloc] initWithFrame:CGRectMake(width * i + kGapBetweenElement * (i + 1), 10, width, width)];
-            imgView.cornerRadius = width / 2;
-            imgView.borderColor = [UIColor blackColor];
+            imgView.cornerRadius = imgView.frame.size.width / 2;
+            imgView.borderColor = [UIColor yellowColor];
             imgView.borderWidth = 5;
             [self addSubview:imgView];
             [tempArray addObject:imgView];
@@ -53,6 +53,7 @@ static const CGFloat kGapBetweenElement = 5;
         FMRadiusImageView *imgView = self.imageViewArray[i];
         imgView.usedSystemDefault = useSystemDefault;
         imgView.image = [UIImage imageNamed:[[NSString alloc] initWithFormat:@"Avatar_%d", [UIImage randomNumberStartFrom:0 ToEnd:3]]];
+
     }
 }
 @end

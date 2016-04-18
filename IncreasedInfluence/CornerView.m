@@ -50,14 +50,23 @@
     return _textColor ? : [UIColor purpleColor];
 }
 
--(UIColor *)borderColor
-{
-    return _borderColor ? : [UIColor yellowColor];
+-(void)setBorderWidth:(CGFloat)borderWidth{
+    _borderWidth = borderWidth;
+    if(self.usedSystemDefault){
+        self.bgImgView.layer.borderWidth = borderWidth;
+    }else{
+        self.bgImgView.layer.borderWidth = 0;
+    }
 }
 
--(CGFloat)borderWidth
+-(void)setBorderColor:(UIColor *)borderColor
 {
-    return (_borderWidth >= 0) ? _borderWidth : 1;
+    _borderColor = borderColor;
+    if(self.usedSystemDefault){
+        self.bgImgView.layer.borderColor = borderColor.CGColor;
+    }else{
+        self.bgImgView.layer.borderColor = [UIColor clearColor].CGColor;
+    }
 }
 
 -(UIColor *)labelBackGroundColor
@@ -138,7 +147,7 @@
         }
         //上层图片
         UIImage *topImg = [self drawCornerRadius:img withBorderWidth:self.borderWidth];
-        UIImage *bg = [self drawCornerRadius:[self p_solidWithColor:[UIColor yellowColor]] withBorderWidth:0];
+        UIImage *bg = [self drawCornerRadius:[self p_solidWithColor:self.borderColor] withBorderWidth:0];
         UIImage *final = [self p_mixTopImg:topImg withBgImg:bg];
         dispatch_async(dispatch_get_main_queue(), ^(void) {
             if (isCancelled()) {
