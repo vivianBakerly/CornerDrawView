@@ -63,6 +63,9 @@
     self.resultImg = [[UIImageView alloc] initWithFrame:self.bounds];
     self.resultImg.contentMode = UIViewContentModeScaleAspectFit;
     [self addSubview:self.resultImg];
+    
+    self.needReDrawCornerUserImage = NO;
+    self.needReDrawcornerBorderImage = NO;
 }
 
 #pragma mark override
@@ -80,8 +83,8 @@
 
 #pragma mark properties setting
 - (void)setCornerRadius:(CGFloat)cornerRadius {
-    if(cornerRadius != _cornerRadius){
-        _cornerRadius = (cornerRadius >= 0) ? cornerRadius : 0;
+    if(cornerRadius != _cornerRadius && (cornerRadius >= 0)){
+        _cornerRadius = cornerRadius;
         if(!self.usedSystemDefault){
             self.resultImg.layer.cornerRadius = 0;
             self.resultImg.layer.masksToBounds = NO;
@@ -96,10 +99,9 @@
 }
 
 -(void)setBorderWidth:(CGFloat)borderWidth {
-    if(_borderWidth != borderWidth){
-        _borderWidth = (borderWidth >= 0) ? borderWidth : 0;
+    if(_borderWidth != borderWidth && borderWidth >= 0){
+        _borderWidth = borderWidth;
         self.needReDrawCornerUserImage = YES;
-        self.needReDrawcornerBorderImage = NO;
         [self setNeedsDisplay];
     }
 }
@@ -107,9 +109,8 @@
 -(void)setBorderColor:(UIColor *)borderColor {
     if(borderColor != _borderColor){
         _borderColor = borderColor ? : [UIColor clearColor];
-        //当有宽度时才重新绘制
+        //颜色改变且有宽度时才绘制
         if(_borderWidth > 0){
-            self.needReDrawCornerUserImage = NO;
             self.needReDrawcornerBorderImage = YES;
             [self setNeedsDisplay];
         }
@@ -128,6 +129,7 @@
 - (void)setImage:(UIImage *)image {
     _image = image;
     if(!self.usedSystemDefault){
+        self.needReDrawCornerUserImage = YES;
         [self setNeedsDisplay];
     }else{
         self.resultImg.image = image;
@@ -149,23 +151,25 @@
         CGRect drawFrame = self.resultImg.frame;
         //上层图片
         UIImage *final;
-//        if(self.needReDrawCornerUserImage){
-            self.cornerUserImage = [UIImage drawCornerRadiusWithBgImg:img withBorderWidth:self.borderWidth andCorderRadius:self.cornerRadius inFrame:drawFrame];
-//        }
-        if(self.borderWidth > 0){
+        UIImage *top = (self.needReDrawCornerUserImage) ?  [UIImage drawCornerRadiusWithBgImg:img withBorderWidth:self.borderWidth andCorderRadius:self.cornerRadius inFrame:drawFrame] : nil;
+        UIImage *bg;
+        if(self.borderWidth > 0 && self.needReDrawcornerBorderImage){
             //下层图片，用于边框
-            UIImage *bg = [UIImage drawCornerRadiusWithBgImg:[UIImage drawsolidRecInFrame:drawFrame andfillWithColor:self.borderColor] withBorderWidth:0 andCorderRadius:self.cornerRadius inFrame:drawFrame];
-            self.cornerBorderImage = bg;
-            final = [UIImage mixTopImg:self.cornerUserImage withBgImg:bg inFrame:drawFrame WithBorderWidth:self.borderWidth];
+            bg = [UIImage drawCornerRadiusWithBgImg:[UIImage drawsolidRecInFrame:drawFrame andfillWithColor:self.borderColor] withBorderWidth:0 andCorderRadius:self.cornerRadius inFrame:drawFrame];
+            final = [UIImage mixTopImg:top withBgImg:bg inFrame:drawFrame WithBorderWidth:self.borderWidth];
         }else{
-            final = self.cornerUserImage;
+            final = top;
         }
-        
         dispatch_async(dispatch_get_main_queue(), ^(void) {
             if (isCancelled()) {
                 return;
             }
             self.resultImg.image = final;
+            self.cornerUserImage = top;
+            self.cornerBorderImage = bg;
+            self.needReDrawcornerBorderImage = NO;
+            self.needReDrawCornerUserImage = NO;
+            NSLog(@"CornerRadius = %f, BorderWidth = %f", self.cornerRadius, self.borderWidth);
         });
     });
 }
@@ -175,13 +179,5 @@
     [self.sentinel increase];
 }
 
-- (BOOL)needReDrawcornerBorderImage
-{
-    return (self.borderWidth > 0);
-}
 
-- (BOOL)needReDrawCornerBorderImage
-{
-    return YES;
-}
 @end

@@ -121,6 +121,10 @@ static const CGFloat kSketchpadGap = 50;
     self.radiusImageView.cornerRadius = self.radiusDraft;
     self.radiusImageView.borderWidth = self.widthDraft;
     self.radiusImageView.borderColor = (self.turnOn) ? [UIColor redColor] : [UIColor yellowColor];
+    
+//    for(int i = 0 ; i < 10 ; i++){
+//        self.radiusImageView.cornerRadius = self.radiusDraft;
+//    }
 }
 - (void)switchMode
 {
