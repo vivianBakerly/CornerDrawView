@@ -58,40 +58,27 @@
     [self addSubview:self.resultImg];
 }
 
-#pragma mark override
-- (void)setNeedsDisplay
-{
-    [self p_cancelAsyncDraw];
-    [super setNeedsDisplay];
-}
-
--(void)drawRect:(CGRect)rect
-{
-    [super drawRect:rect];
-    [self p_drawWithImage];
-}
-
 #pragma mark properties setting
 - (void)setCornerRadius:(CGFloat)cornerRadius {
     if(cornerRadius != _cornerRadius && (cornerRadius >= 0)){
         _cornerRadius = cornerRadius;
-            [self setNeedsDisplay];
+        [self restartDraw];
     }
 }
 
 -(void)setBorderWidth:(CGFloat)borderWidth {
     if(_borderWidth != borderWidth && borderWidth >= 0){
         _borderWidth = borderWidth;
-            [self setNeedsDisplay];
+        [self restartDraw];
     }
 }
 
 -(void)setBorderColor:(UIColor *)borderColor {
-    if(!borderColor && borderColor != _borderColor){
+    if(borderColor && borderColor != _borderColor){
         _borderColor = borderColor;
         //颜色改变且有宽度时才绘制
         if(_borderWidth > 0){
-            [self setNeedsDisplay];
+           [self restartDraw];
         }
     }
  }
@@ -106,8 +93,10 @@
 }
 
 - (void)setImage:(UIImage *)image {
-    _image = image;
-    [self setNeedsDisplay];
+    if(image){
+        _image = image;
+        [self restartDraw];
+    }
 }
 
 #pragma draw
@@ -146,7 +135,6 @@
                 self.cornerUserImage = top;
                 self.cornerBorderImage = bg;
                 [self cachedCurrentVariables];
-                //            NSLog(@"CustomDefine: CornerRadius = %f, BorderWidth = %f", self.cornerRadius, self.borderWidth);
             });
         }
     });
@@ -154,11 +142,11 @@
 
 - (void)cachedCurrentVariables
 {
-    self.cachedVariables[RadiusKBorderColor] = self.borderColor;
+    self.cachedVariables[RadiusKBorderColor] = self.borderColor ? : [UIColor clearColor];
     self.cachedVariables[RadiusKBorderWidth] = @(self.borderWidth);
     self.cachedVariables[RadiusKFrame] = [NSValue valueWithCGRect:self.frame];
     self.cachedVariables[RadiusKCornerRadius] = @(self.cornerRadius);
-    self.cachedVariables[RadiusKImage] = self.image;
+    self.cachedVariables[RadiusKImage] = self.image ? :[UIImage new];
 }
 
 -(BOOL)needRedrawUserImage {
@@ -183,6 +171,12 @@
     return NO;
 }
 
+-(void)restartDraw
+{
+    [self p_cancelAsyncDraw];
+    [self p_drawWithImage];
+}
+
 //tbd: borderWidth
 - (BOOL)needRedrawCornerImage {
 //    return YES;
@@ -198,10 +192,9 @@
     if(self.cachedVariables[RadiusKBorderColor] != self.borderColor){
         return YES;
     }
-    
-    
     return NO;
 }
+
 - (void)p_cancelAsyncDraw
 {
     [self.sentinel increase];

@@ -89,7 +89,7 @@
 -(void)setTextColor:(UIColor *)textColor {
     if(textColor && textColor != _textColor){
         _textColor = textColor;
-
+        [self restartDraw];
     }
 }
 
@@ -102,11 +102,10 @@
 }
 
 -(void)setText:(NSString *)text {
-    if(text != _text){
+    if(text && text != _text){
         _text = text;
         [self restartDraw];
     }
-    
 }
 
 -(void)beginDrawTextLabel
