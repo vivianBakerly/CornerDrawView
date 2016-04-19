@@ -50,29 +50,29 @@
 }
 
 #pragma mark override
-- (void)setNeedsDisplay
-{
-    [self p_cancelAsyncDraw];
-    [super setNeedsDisplay];
-}
-
--(void)drawRect:(CGRect)rect
-{
-    [super drawRect:rect];
-    [self beginDrawTextLabel];
-}
+//- (void)setNeedsDisplay
+//{
+//    [self p_cancelAsyncDraw];
+//    [super setNeedsDisplay];
+//}
+//
+//-(void)drawRect:(CGRect)rect
+//{
+//    [super drawRect:rect];
+//    [self beginDrawTextLabel];
+//}
 #pragma mark properties setting
 - (void)setCornerRadius:(CGFloat)cornerRadius {
     if(cornerRadius != _cornerRadius && (cornerRadius >= 0)){
         _cornerRadius = cornerRadius;
-       [self setNeedsDisplay];
+        [self restartDraw];
     }
 }
 
 -(void)setBorderWidth:(CGFloat)borderWidth {
     if(_borderWidth != borderWidth && borderWidth >= 0){
         _borderWidth = borderWidth;
-       [self setNeedsDisplay];
+        [self restartDraw];
     }
 }
 
@@ -81,7 +81,7 @@
         _borderColor = borderColor;
         //颜色改变且有宽度时才绘制
         if(_borderWidth > 0){
-            [self setNeedsDisplay];
+            [self restartDraw];
         }
     }
 }
@@ -89,7 +89,7 @@
 -(void)setTextColor:(UIColor *)textColor {
     if(textColor && textColor != _textColor){
         _textColor = textColor;
-        [self setNeedsDisplay];
+
     }
 }
 
@@ -97,13 +97,16 @@
 {
     if(labelBgColor && labelBgColor != _labelBgColor){
         _labelBgColor = labelBgColor;
-        [self setNeedsDisplay];
+        [self restartDraw];
     }
 }
 
 -(void)setText:(NSString *)text {
-    _text = text;
-    [self setNeedsDisplay];
+    if(text != _text){
+        _text = text;
+        [self restartDraw];
+    }
+    
 }
 
 -(void)beginDrawTextLabel
@@ -222,6 +225,13 @@
     //tbd font
     return NO;
 }
+
+-(void)restartDraw
+{
+    [self p_cancelAsyncDraw];
+    [self beginDrawTextLabel];
+}
+
 -(void)p_drawText {
     if(self.text.length > 0 && [self needReDrawText]){
         [self.textLabel removeFromSuperview];
