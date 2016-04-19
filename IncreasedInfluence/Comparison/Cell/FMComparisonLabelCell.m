@@ -78,9 +78,13 @@ static const CGFloat kGapBetweenElement = 3;
     }else{
         for(int i = 0; i < kElementInRow ; i++){
             FMRadiusLabel *label = self.labelsArray[i];
-            label.text = [[NSString alloc] initWithFormat:@"%d", [UIImage randomNumberStartFrom:0 ToEnd:17]];
+            label.text = [[NSString alloc] initWithFormat:@"1", [UIImage randomNumberStartFrom:0 ToEnd:17]];
         }
     }
 }
 
+-(void)dealloc
+{
+    
+}
 @end

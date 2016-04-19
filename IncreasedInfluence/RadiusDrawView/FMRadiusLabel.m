@@ -19,8 +19,6 @@
 @property(nonatomic, strong)UILabel *textLabel;
 
 @property(nonatomic, strong)NSMutableDictionary *cachedVariables;
-@property(nonatomic, assign)BOOL needReDrawBgImg;
-@property(nonatomic, assign)BOOL needReDrawUpperImg;
 @property(nonatomic, assign)BOOL needReDrawText;
 @end
 
@@ -135,28 +133,33 @@
         }
         CGRect drawFrame = self.resultImg.frame;
         //上层图片
-        UIImage *topImg = self.needReDrawUpperImg ? [UIImage drawCornerRadiusWithBgImg:img withBorderWidth:self.borderWidth andCorderRadius:self.cornerRadius inFrame:drawFrame] : self.upperImage;
-        UIImage *final;
-        UIImage *bg;
-        if([self hasBorder]){
-            //下层图片，用于边框
-            bg = self.needReDrawBgImg ? [UIImage drawCornerRadiusWithBgImg:[UIImage drawsolidRecInFrame:drawFrame andfillWithColor:self.borderColor] withBorderWidth:0 andCorderRadius:self.cornerRadius inFrame:drawFrame] : self.borderImage;
-            final = [UIImage mixTopImg:topImg withBgImg:bg inFrame:drawFrame WithBorderWidth:self.borderWidth];
-        }else{
-            final = topImg;
-        }
-        dispatch_async(dispatch_get_main_queue(), ^(void) {
-            if (isCancelled()) {
-                return;
+        BOOL needDrawUpper = [self needReDrawUpperImg];
+        BOOL needDrawBg = [self needReDrawBgImg];
+        
+        if(needDrawBg || needDrawUpper){
+            UIImage *final;
+            UIImage *topImg = needDrawUpper ? [UIImage drawCornerRadiusWithBgImg:img withBorderWidth:self.borderWidth andCorderRadius:self.cornerRadius inFrame:drawFrame] : self.upperImage;
+            UIImage *bg;
+            if([self hasBorder]){
+                //下层图片，用于边框
+                bg = needDrawBg ? [UIImage drawCornerRadiusWithBgImg:[UIImage drawsolidRecInFrame:drawFrame andfillWithColor:self.borderColor] withBorderWidth:0 andCorderRadius:self.cornerRadius inFrame:drawFrame] : self.borderImage;
+                final = [UIImage mixTopImg:topImg withBgImg:bg inFrame:drawFrame WithBorderWidth:self.borderWidth];
+            }else{
+                final = topImg;
             }
-            self.resultImg.image = final;
-            //cache
-            self.upperImage = topImg;
-            self.borderImage = bg;
-            [self p_drawText];
             
-            [self cachedCurrentVariables];
-        });
+            dispatch_async(dispatch_get_main_queue(), ^(void) {
+                if (isCancelled()) {
+                    return;
+                }
+                self.resultImg.image = final;
+                //cache
+                self.upperImage = topImg;
+                self.borderImage = bg;
+                [self p_drawText];
+                [self cachedCurrentVariables];
+            });
+        }
     });
 }
 
@@ -185,6 +188,7 @@
     if(self.cachedVariables[RadiusKBorderColor] != self.borderColor){
         return YES;
     }
+    
     return NO;
 }
 

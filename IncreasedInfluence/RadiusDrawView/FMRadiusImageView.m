@@ -20,8 +20,6 @@
 @property(nonatomic, strong)UIImage *cornerUserImage;
 @property(nonatomic, strong)NSMutableDictionary *cachedVariables;
 
-@property(nonatomic, assign)BOOL needRedrawUserImage;
-@property(nonatomic, assign)BOOL needRedrawCornerImage;
 @end
 @implementation FMRadiusImageView
 
@@ -70,7 +68,7 @@
 -(void)drawRect:(CGRect)rect
 {
     [super drawRect:rect];
-    [self p_drawWithImage:self.image];
+    [self p_drawWithImage];
 }
 
 #pragma mark properties setting
@@ -113,7 +111,7 @@
 }
 
 #pragma draw
--(void)p_drawWithImage:(UIImage *)img {
+-(void)p_drawWithImage {
 //    [self.sentinel increase];
     int32_t value = self.sentinel.value;
     BOOL (^isCancelled)() = ^BOOL(){
@@ -124,28 +122,33 @@
         if(isCancelled()){
             return;
         }
-        CGRect drawFrame = self.resultImg.frame;
-        //上层图片
-        UIImage *final;
-        UIImage *top = (self.needRedrawUserImage) ?  [UIImage drawCornerRadiusWithBgImg:img withBorderWidth:self.borderWidth andCorderRadius:self.cornerRadius inFrame:drawFrame] : self.cornerUserImage;
-        UIImage *bg;
-        if(self.borderWidth > 0){
-            //下层图片，用于边框
-            bg = (self.needRedrawCornerImage) ? [UIImage drawCornerRadiusWithBgImg:[UIImage drawsolidRecInFrame:drawFrame andfillWithColor:self.borderColor] withBorderWidth:0 andCorderRadius:self.cornerRadius inFrame:drawFrame] : self.cornerBorderImage;
-            final = [UIImage mixTopImg:top withBgImg:bg inFrame:drawFrame WithBorderWidth:self.borderWidth];
-        }else{
-            final = top;
-        }
-        dispatch_async(dispatch_get_main_queue(), ^(void) {
-            if (isCancelled()) {
-                return;
+        BOOL needRedrawUserImage = [self needRedrawUserImage];
+        BOOL needRedrawCornerImage = [self needRedrawCornerImage];
+        
+        if(needRedrawCornerImage || needRedrawUserImage){
+            CGRect drawFrame = self.resultImg.frame;
+            //上层图片
+            UIImage *final;
+            UIImage *top = (self.needRedrawUserImage) ?  [UIImage drawCornerRadiusWithBgImg:self.image withBorderWidth:self.borderWidth andCorderRadius:self.cornerRadius inFrame:drawFrame] : self.cornerUserImage;
+            UIImage *bg;
+            if(self.borderWidth > 0){
+                //下层图片，用于边框
+                bg = (self.needRedrawCornerImage) ? [UIImage drawCornerRadiusWithBgImg:[UIImage drawsolidRecInFrame:drawFrame andfillWithColor:self.borderColor] withBorderWidth:0 andCorderRadius:self.cornerRadius inFrame:drawFrame] : self.cornerBorderImage;
+                final = [UIImage mixTopImg:top withBgImg:bg inFrame:drawFrame WithBorderWidth:self.borderWidth];
+            }else{
+                final = top;
             }
-            self.resultImg.image = final;
-            self.cornerUserImage = top;
-            self.cornerBorderImage = bg;
-            [self cachedCurrentVariables];
-//            NSLog(@"CustomDefine: CornerRadius = %f, BorderWidth = %f", self.cornerRadius, self.borderWidth);
-        });
+            dispatch_async(dispatch_get_main_queue(), ^(void) {
+                if (isCancelled()) {
+                    return;
+                }
+                self.resultImg.image = final;
+                self.cornerUserImage = top;
+                self.cornerBorderImage = bg;
+                [self cachedCurrentVariables];
+                //            NSLog(@"CustomDefine: CornerRadius = %f, BorderWidth = %f", self.cornerRadius, self.borderWidth);
+            });
+        }
     });
 }
 
@@ -155,6 +158,7 @@
     self.cachedVariables[RadiusKBorderWidth] = @(self.borderWidth);
     self.cachedVariables[RadiusKFrame] = [NSValue valueWithCGRect:self.frame];
     self.cachedVariables[RadiusKCornerRadius] = @(self.cornerRadius);
+    self.cachedVariables[RadiusKImage] = self.image;
 }
 
 -(BOOL)needRedrawUserImage {
@@ -169,6 +173,10 @@
     }
     
     if([self.cachedVariables[RadiusKBorderWidth] floatValue] != self.borderWidth){
+        return YES;
+    }
+    
+    if(self.cachedVariables[RadiusKImage] != self.image){
         return YES;
     }
     
@@ -190,6 +198,8 @@
     if(self.cachedVariables[RadiusKBorderColor] != self.borderColor){
         return YES;
     }
+    
+    
     return NO;
 }
 - (void)p_cancelAsyncDraw
