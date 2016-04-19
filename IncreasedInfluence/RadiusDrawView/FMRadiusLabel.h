@@ -19,5 +19,5 @@ typedef enum : NSUInteger {
 @property(nonatomic)FMRadiusLabelType labelType;
 @property(nonatomic, strong)NSString *text;
 @property(nonatomic, strong)UIColor *textColor;
-@property(nonatomic, strong)UIColor *labelBackGroundColor;
+@property(nonatomic, strong)UIColor *backgroundColor;
 @end

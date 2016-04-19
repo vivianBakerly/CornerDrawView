@@ -11,8 +11,9 @@
 #import "FMSketchpadViewController.h"
 
 typedef enum:NSUInteger {
-    FMEntryViewControllerRowType_Comparison = 0,
-    FMEntryViewControllerRowType_Sketchpad = 1,
+    FMEntryViewControllerRowType_ComparisonImg = 0,
+    FMEntryViewControllerRowType_ComparisonLabel,
+    FMEntryViewControllerRowType_Sketchpad,
     FMEntryViewControllerRowType_Count,
 }FMEntryViewControllerRowType;
 @interface FMEntryViewController()<UITableViewDataSource, UITableViewDelegate>
@@ -28,7 +29,7 @@ typedef enum:NSUInteger {
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    self.names = @[@"Comparison", @"Sketchpad"];
+    self.names = @[@"Comparison(ImageViews)", @"Comparison(Labels)", @"Sketchpad"];
     self.title = @"Catalog";
     [self.view addSubview:self.tableView];
 }
@@ -50,9 +51,10 @@ typedef enum:NSUInteger {
     if(indexPath.row < self.names.count){
         CGFloat height = [self tableView:self.tableView heightForRowAtIndexPath:indexPath];
         cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, height)];
-        UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 100, height)];
+        UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, height)];
         nameLabel.text = self.names[indexPath.row];
         [cell addSubview:nameLabel];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return cell;
 }
@@ -71,9 +73,16 @@ typedef enum:NSUInteger {
             vc = [[FMSketchpadViewController alloc] init];
         }
             break;
-        case FMEntryViewControllerRowType_Comparison:
+        case FMEntryViewControllerRowType_ComparisonImg:
         {
             vc = [[DrawRadiusViewController alloc] init];
+            ((DrawRadiusViewController *)vc).compareType = FMComparisonType_Img;
+        }
+            break;
+        case FMEntryViewControllerRowType_ComparisonLabel:
+        {
+            vc = [[DrawRadiusViewController alloc] init];
+            ((DrawRadiusViewController *)vc).compareType = FMComparisonType_Label;
         }
             break;
         default:

@@ -10,11 +10,6 @@
 #import "FMRadiusImageView.h"
 #import "UIImage+DrawRadius.h"
 
-/**
- *  tbd:取消时机
- *  两张图的绘制条件
- */
-
 @interface FMRadiusImageView()
 @property(nonatomic, strong)YYSentinel *sentinel;
 @property(nonatomic, strong)UIImageView *resultImg;
@@ -104,8 +99,8 @@
 }
 
 -(void)setBorderColor:(UIColor *)borderColor {
-    if(borderColor != _borderColor){
-        _borderColor = borderColor ? : [UIColor clearColor];
+    if(!borderColor && borderColor != _borderColor){
+        _borderColor = borderColor;
         //颜色改变且有宽度时才绘制
         if(_borderWidth > 0){
               if(!self.usedSystemDefault){
@@ -166,9 +161,9 @@
         UIImage *final;
         UIImage *top = (self.needRedrawUserImage) ?  [UIImage drawCornerRadiusWithBgImg:img withBorderWidth:self.borderWidth andCorderRadius:self.cornerRadius inFrame:drawFrame] : self.cornerUserImage;
         UIImage *bg;
-         if(self.borderWidth > 0){
+        if(self.borderWidth > 0){
             //下层图片，用于边框
-             bg = (self.needRedrawCornerImage) ? [UIImage drawCornerRadiusWithBgImg:[UIImage drawsolidRecInFrame:drawFrame andfillWithColor:self.borderColor] withBorderWidth:0 andCorderRadius:self.cornerRadius inFrame:drawFrame] : self.cornerBorderImage;
+            bg = (self.needRedrawCornerImage) ? [UIImage drawCornerRadiusWithBgImg:[UIImage drawsolidRecInFrame:drawFrame andfillWithColor:self.borderColor] withBorderWidth:0 andCorderRadius:self.cornerRadius inFrame:drawFrame] : self.cornerBorderImage;
             final = [UIImage mixTopImg:top withBgImg:bg inFrame:drawFrame WithBorderWidth:self.borderWidth];
         }else{
             final = top;
@@ -195,6 +190,7 @@
 }
 
 -(BOOL)needRedrawUserImage {
+//    return YES;
     if([self.cachedVariables[RadiusKCornerRadius] floatValue] != self.cornerRadius){
         return YES;
     }
@@ -213,6 +209,7 @@
 
 //tbd: borderWidth
 - (BOOL)needRedrawCornerImage {
+//    return YES;
     if([self.cachedVariables[RadiusKCornerRadius] floatValue] != self.cornerRadius){
         return YES;
     }

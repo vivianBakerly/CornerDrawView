@@ -6,21 +6,21 @@
 //  Copyright © 2016年 isahuang. All rights reserved.
 //
 
-#import "FMComparisonCell.h"
+#import "FMComparisonImageCell.h"
 #import "FMRadiusImageView.h"
 #import "UIImage+DrawRadius.h"
 
 static const NSUInteger kElementInRow = 5;
 static const CGFloat kGapBetweenElement = 5;
 
-@interface FMComparisonCell()
+@interface FMComparisonImageCell()
 @property (nonatomic, strong)NSArray *imageViewArray;
 @end
-@implementation FMComparisonCell
+@implementation FMComparisonImageCell
 
 +(NSString *)identifier
 {
-    return @"FMCELLID_COMPARISON";
+    return @"FMCELLID_COMPARISON_IMG";
 }
 
 +(CGFloat)heightForRow
@@ -53,7 +53,6 @@ static const CGFloat kGapBetweenElement = 5;
         FMRadiusImageView *imgView = self.imageViewArray[i];
         imgView.usedSystemDefault = useSystemDefault;
         imgView.image = [UIImage imageNamed:[[NSString alloc] initWithFormat:@"Avatar_%d", [UIImage randomNumberStartFrom:0 ToEnd:3]]];
-
     }
 }
 @end

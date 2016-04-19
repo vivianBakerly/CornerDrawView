@@ -12,7 +12,10 @@
 
 @interface FMRadiusLabel()
 @property(nonatomic, strong)YYSentinel *sentinel;
-@property(nonatomic, strong)UIImageView *bgImgView;
+@property(nonatomic, strong)UIImageView *resultImg;
+
+@property(nonatomic, strong)UIImage *borderImage;
+@property(nonatomic, strong)UIImage *upperImage;
 @property(nonatomic, strong)UILabel *textLabel;
 @end
 
@@ -48,85 +51,120 @@
     self.usedSystemDefault = NO;
     self.borderColor = [UIColor clearColor];
     self.textColor = [UIColor blackColor];
-    self.bgImgView = [[UIImageView alloc] initWithFrame:self.bounds];
-    self.bgImgView.contentMode = UIViewContentModeScaleAspectFit;
-    [self addSubview:self.bgImgView];
+    self.resultImg = [[UIImageView alloc] initWithFrame:self.bounds];
+    self.resultImg.contentMode = UIViewContentModeScaleAspectFit;
+    [self addSubview:self.resultImg];
 }
 
+#pragma mark override
+- (void)setNeedsDisplay
+{
+    if(!self.usedSystemDefault){
+        [self p_cancelAsyncDraw];
+    }
+    [super setNeedsDisplay];
+}
+
+-(void)drawRect:(CGRect)rect
+{
+    [super drawRect:rect];
+    if(!self.usedSystemDefault){
+//        [self p_drawWithImage:self.image];
+    }
+}
 #pragma mark properties setting
 - (void)setCornerRadius:(CGFloat)cornerRadius {
-    _cornerRadius = (cornerRadius >= 0) ? cornerRadius : 0;
-    if(!self.usedSystemDefault){
-        self.bgImgView.layer.cornerRadius = 0;
-        self.bgImgView.layer.masksToBounds = NO;
-    }else{
-        self.bgImgView.layer.cornerRadius = cornerRadius;
-        self.bgImgView.layer.masksToBounds = YES;
+    if(cornerRadius != _cornerRadius && (cornerRadius >= 0)){
+        _cornerRadius = cornerRadius;
+        if(!self.usedSystemDefault){
+            [self setNeedsDisplay];
+        }
     }
 }
 
 -(void)setBorderWidth:(CGFloat)borderWidth {
-    _borderWidth = (borderWidth >= 0) ? borderWidth : 0;
+    if(_borderWidth != borderWidth && borderWidth >= 0){
+        _borderWidth = borderWidth;
+        if(!self.usedSystemDefault){
+            [self setNeedsDisplay];
+        }
+    }
 }
 
 -(void)setBorderColor:(UIColor *)borderColor {
-    _borderColor = borderColor ? : [UIColor clearColor];
+    if(!borderColor && borderColor != _borderColor){
+        _borderColor = borderColor;
+        //颜色改变且有宽度时才绘制
+        if(_borderWidth > 0){
+            if(!self.usedSystemDefault){
+                [self setNeedsDisplay];
+            }
+        }
+    }
+}
+
+-(void)setUsedSystemDefault:(BOOL)usedSystemDefault{
+    _usedSystemDefault = usedSystemDefault;
+    if(usedSystemDefault){
+        self.textLabel.layer.cornerRadius = self.cornerRadius;
+        self.textLabel.layer.masksToBounds = YES;
+        self.textLabel.layer.borderWidth = self.borderWidth;
+        self.textLabel.layer.borderColor = self.borderColor.CGColor;
+        self.textLabel.backgroundColor = self.backgroundColor;
+    }else{
+        self.textLabel.layer.cornerRadius = 0;
+        self.textLabel.layer.masksToBounds = NO;
+        self.textLabel.layer.borderWidth = 0;
+        self.textLabel.layer.borderColor = [UIColor clearColor].CGColor;
+        self.textLabel.backgroundColor = [UIColor clearColor];
+    }
+    
 }
 
 -(void)setTextColor:(UIColor *)textColor {
-    _textColor = textColor ? : [UIColor blackColor];
+    if(!textColor && textColor != _textColor){
+        _textColor = textColor;
+        if(!self.usedSystemDefault){
+            [self setNeedsDisplay];
+        }
+    }
 }
 
 -(void)setBackgroundColor:(UIColor *)backgroundColor
 {
-    _labelBackGroundColor = backgroundColor ? : [UIColor blackColor];
+    if(!backgroundColor && backgroundColor != _backgroundColor){
+        _backgroundColor = backgroundColor;
+        if(!self.usedSystemDefault){
+            [self setNeedsDisplay];
+        }
+    }
 }
 
 -(void)setText:(NSString *)text {
     _text = text;
-    if(!_usedSystemDefault){
-        self.bgImgView.backgroundColor = [UIColor clearColor];
-        self.bgImgView.layer.borderColor = [UIColor clearColor].CGColor;
-        self.bgImgView.layer.borderWidth = 0;
-        self.bgImgView.layer.borderWidth = self.borderWidth;
-        switch (self.labelType) {
-            case FMLabelType_Solid:
-            {
-                [self p_drawWithImage:nil];
-            }
-                break;
-            case FMLabelType_Hollow:
-            {
-                [self p_drawWithImage: [UIImage drawsolidRecInFrame:self.bgImgView.frame andfillWithColor:self.labelBackGroundColor]];
-            }
-                break;
-            default:
-                break;
-        }
+}
+
+-(void)beginDrawTextLabel
+{
+    if(self.usedSystemDefault){
+        [self p_drawText];
     }else{
-        switch (self.labelType) {
-            case FMLabelType_Solid:
-            {
-                self.bgImgView.backgroundColor = self.borderColor;
-                
-            }
-                break;
-            case FMLabelType_Hollow:
-            {
-                self.bgImgView.backgroundColor = [UIColor blackColor];
-            }
-                break;
-            default:
-                break;
+        if([self hasBorder]){
+             [self p_drawWithImage: [UIImage drawsolidRecInFrame:self.resultImg.frame andfillWithColor:self.backgroundColor]];
+        }else{
+             [self p_drawWithImage:nil];
         }
-        self.bgImgView.layer.borderColor = self.borderColor.CGColor;
-        self.bgImgView.layer.borderWidth = self.borderWidth;
     }
+}
+
+-(BOOL)hasBorder
+{
+    return (self.borderWidth > 0);
 }
 
 #pragma mark draw
 -(void)p_drawWithImage:(UIImage *)img {
-    [self.sentinel increase];
+//    [self.sentinel increase];
     int32_t value = self.sentinel.value;
     BOOL (^isCancelled)() = ^BOOL(){
         return (value != self.sentinel.value);
@@ -136,7 +174,7 @@
         if(isCancelled()){
             return;
         }
-        CGRect drawFrame = self.bgImgView.frame;
+        CGRect drawFrame = self.resultImg.frame;
         //上层图片
         UIImage *topImg = [UIImage drawCornerRadiusWithBgImg:img withBorderWidth:self.borderWidth andCorderRadius:self.cornerRadius inFrame:drawFrame];
         UIImage *final;
@@ -151,7 +189,7 @@
             if (isCancelled()) {
                 return;
             }
-            self.bgImgView.image = final;
+            self.resultImg.image = final;
             [self p_drawText];
         });
     });
@@ -161,7 +199,7 @@
 -(void)p_drawText {
     [self.textLabel removeFromSuperview];
     if(self.text.length > 0){
-        UILabel *label = [[UILabel alloc] initWithFrame:self.bgImgView.bounds];
+        UILabel *label = [[UILabel alloc] initWithFrame:self.resultImg.bounds];
         label.font = [UIFont systemFontOfSize:14];
         label.text = self.text;
         label.textColor = self.textColor;
@@ -173,4 +211,8 @@
     }
 }
 
+- (void)p_cancelAsyncDraw
+{
+    [self.sentinel increase];
+}
 @end

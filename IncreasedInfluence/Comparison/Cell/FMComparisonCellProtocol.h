@@ -1,15 +1,16 @@
 //
-//  FMComparisonCell.h
+//  FMComparisonCellProtocol.h
 //  IncreasedInfluence
 //
-//  Created by isahuang on 16/4/18.
+//  Created by isahuang on 16/4/19.
 //  Copyright © 2016年 isahuang. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
-@interface FMComparisonCell : UITableViewCell
+@protocol FMComparisonCellProtocol <NSObject>
 
+@required
 +(NSString *)identifier;
 +(CGFloat)heightForRow;
 

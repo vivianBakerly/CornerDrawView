@@ -7,7 +7,7 @@
 //
 
 #import "DrawRadiusViewController.h"
-#import "FMComparisonCell.h"
+#import "FMComparisonImageCell.h"
 //#import "CornerRadiusMicro.h"
 
 @interface DrawRadiusViewController ()<UITableViewDelegate, UITableViewDataSource>
@@ -69,10 +69,10 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *identifier = [FMComparisonCell identifier];
-    FMComparisonCell *cell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
+    NSString *identifier = [FMComparisonImageCell identifier];
+    FMComparisonImageCell *cell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
     if(cell == nil){
-        cell = [[FMComparisonCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell = [[FMComparisonImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         cell.backgroundColor = [UIColor grayColor];
     }
     [cell setupItemWithSwitcher:self.useSystemDefault];
@@ -81,7 +81,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [FMComparisonCell heightForRow];
+    return [FMComparisonImageCell heightForRow];
 }
 
 @end
