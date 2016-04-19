@@ -71,23 +71,46 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(self.compareType == FMComparisonType_Img){
-        NSString *identifier = [FMComparisonImageCell identifier];
-        FMComparisonImageCell *cell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
-        if(cell == nil){
-            cell = [[FMComparisonImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-            cell.backgroundColor = [UIColor grayColor];
+        if(!self.useSystemDefault){
+            NSString *identifier = [FMComparisonImageCell identifier];
+            FMComparisonImageCell *cell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
+            if(cell == nil){
+                cell = [[FMComparisonImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+                cell.backgroundColor = [UIColor grayColor];
+            }
+            [cell setupItemWithSwitcher:self.useSystemDefault];
+            return cell;
+        }else{
+            NSString *identifier = [FMComparisonImageCell identifierForOriginType];
+            FMComparisonImageCell *cell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
+            if(cell == nil){
+                cell = [[FMComparisonImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+                cell.backgroundColor = [UIColor grayColor];
+            }
+            [cell setupItemWithSwitcher:self.useSystemDefault];
+            return cell;
         }
-        [cell setupItemWithSwitcher:self.useSystemDefault];
-        return cell;
+        
     }else{
-        NSString *identifier = [FMComparisonLabelCell identifier];
-        FMComparisonLabelCell *cell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
-        if(cell == nil){
-            cell = [[FMComparisonLabelCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-            cell.backgroundColor = [UIColor grayColor];
+        if(!self.useSystemDefault){
+            NSString *identifier = [FMComparisonLabelCell identifier];
+            FMComparisonLabelCell *cell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
+            if(cell == nil){
+                cell = [[FMComparisonLabelCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+                cell.backgroundColor = [UIColor grayColor];
+            }
+            [cell setupItemWithSwitcher:self.useSystemDefault];
+            return cell;
+        }else{
+            NSString *identifier = [FMComparisonLabelCell identifierForOriginType];
+            FMComparisonLabelCell *cell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
+            if(cell == nil){
+                cell = [[FMComparisonLabelCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+                cell.backgroundColor = [UIColor grayColor];
+            }
+            [cell setupItemWithSwitcher:self.useSystemDefault];
+            return cell;
         }
-        [cell setupItemWithSwitcher:self.useSystemDefault];
-        return cell;
     }
     return [UITableViewCell new];
 }

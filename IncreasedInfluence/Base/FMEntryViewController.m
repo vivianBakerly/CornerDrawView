@@ -16,6 +16,7 @@ typedef enum:NSUInteger {
     FMEntryViewControllerRowType_Sketchpad,
     FMEntryViewControllerRowType_Count,
 }FMEntryViewControllerRowType;
+
 @interface FMEntryViewController()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong)UITableView *tableView;
 @property (nonatomic, strong)NSArray *names;

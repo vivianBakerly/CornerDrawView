@@ -28,7 +28,6 @@
 @synthesize cornerRadius = _cornerRadius;
 @synthesize borderWidth = _borderWidth;
 @synthesize borderColor = _borderColor;
-@synthesize usedSystemDefault = _usedSystemDefault;
 
 #pragma mark init
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -53,7 +52,6 @@
 - (void)initSettings {
     self.sentinel = [YYSentinel new];
     self.cachedVariables = [NSMutableDictionary new];
-    self.usedSystemDefault = NO;
     self.isCircle = NO;
     self.borderColor = [UIColor clearColor];
     self.resultImg = [[UIImageView alloc] initWithFrame:self.bounds];
@@ -65,36 +63,28 @@
 #pragma mark override
 - (void)setNeedsDisplay
 {
-    if(!self.usedSystemDefault){
-        [self p_cancelAsyncDraw];
-    }
+    [self p_cancelAsyncDraw];
     [super setNeedsDisplay];
 }
 
 -(void)drawRect:(CGRect)rect
 {
     [super drawRect:rect];
-    if(!self.usedSystemDefault){
-        [self p_drawWithImage:self.image];
-    }
+    [self p_drawWithImage:self.image];
 }
 
 #pragma mark properties setting
 - (void)setCornerRadius:(CGFloat)cornerRadius {
     if(cornerRadius != _cornerRadius && (cornerRadius >= 0)){
         _cornerRadius = cornerRadius;
-        if(!self.usedSystemDefault){
             [self setNeedsDisplay];
-        }
     }
 }
 
 -(void)setBorderWidth:(CGFloat)borderWidth {
     if(_borderWidth != borderWidth && borderWidth >= 0){
         _borderWidth = borderWidth;
-        if(!self.usedSystemDefault){
             [self setNeedsDisplay];
-        }
     }
 }
 
@@ -103,27 +93,10 @@
         _borderColor = borderColor;
         //颜色改变且有宽度时才绘制
         if(_borderWidth > 0){
-              if(!self.usedSystemDefault){
-                  [self setNeedsDisplay];
-              }
+            [self setNeedsDisplay];
         }
     }
  }
-
--(void)setUsedSystemDefault:(BOOL)usedSystemDefault{
-    _usedSystemDefault = usedSystemDefault;
-    if(usedSystemDefault){
-        self.resultImg.layer.cornerRadius = self.cornerRadius;
-        self.resultImg.layer.masksToBounds = YES;
-        self.resultImg.layer.borderWidth = self.borderWidth;
-        self.resultImg.layer.borderColor = self.borderColor.CGColor;
-    }else{
-        self.resultImg.layer.cornerRadius = 0;
-        self.resultImg.layer.masksToBounds = NO;
-        self.resultImg.layer.borderWidth = 0;
-        self.resultImg.layer.borderColor = [UIColor clearColor].CGColor;
-    }
-}
 
 - (void)setIsCircle:(BOOL)isCircle {
     _isCircle = isCircle;
@@ -136,12 +109,7 @@
 
 - (void)setImage:(UIImage *)image {
     _image = image;
-    if(!self.usedSystemDefault){
-       [self setNeedsDisplay];
-    }else{
-        self.resultImg.image = image;
-//        NSLog(@"SystemDefault: CornerRadius = %f, BorderWidth = %f", self.cornerRadius, self.borderWidth);
-    }
+    [self setNeedsDisplay];
 }
 
 #pragma draw

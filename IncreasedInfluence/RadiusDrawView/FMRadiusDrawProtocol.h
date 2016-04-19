@@ -12,6 +12,10 @@ static NSString *const RadiusKBorderWidth = @"RadiusKBorderWidth";
 static NSString *const RadiusKBorderColor = @"RadiusKBorderColor";
 static NSString *const RadiusKFrame = @"RadiusKFrame";
 
+static NSString *const RadiusKLabelBgColor = @"RadiusKLabelBgColor";
+static NSString *const RadiusKLabelTextColor = @"RadiusKLabelTextColor";
+static NSString *const RadiusKLabelText = @"RadiusKLabelText";
+
 @protocol FMRadiusDrawProtocol <NSObject>
 
 @required
@@ -21,5 +25,4 @@ static NSString *const RadiusKFrame = @"RadiusKFrame";
 
 @optional
 @property(nonatomic, assign) BOOL maskToBound;
-@property(nonatomic)BOOL usedSystemDefault;
 @end

@@ -20,7 +20,12 @@ static const CGFloat kGapBetweenElement = 5;
 
 +(NSString *)identifier
 {
-    return @"FMCELLID_COMPARISON_IMG";
+    return @"REUSEID_CUSTOM_IMG";
+}
+
++(NSString *)identifierForOriginType
+{
+    return @"REUSEID_ORIGIN_IMG";
 }
 
 +(CGFloat)heightForRow
@@ -35,12 +40,23 @@ static const CGFloat kGapBetweenElement = 5;
         CGFloat width = ([UIScreen mainScreen].bounds.size.width - kGapBetweenElement * (kElementInRow + 1))/ kElementInRow;
         NSMutableArray *tempArray = [NSMutableArray new];
         for(int i = 0; i < kElementInRow ; i++){
-            FMRadiusImageView *imgView = [[FMRadiusImageView alloc] initWithFrame:CGRectMake(width * i + kGapBetweenElement * (i + 1), 10, width, width)];
-            imgView.cornerRadius = imgView.frame.size.width / 2;
-            imgView.borderColor = [UIColor yellowColor];
-            imgView.borderWidth = 5;
-            [self addSubview:imgView];
-            [tempArray addObject:imgView];
+            if([reuseIdentifier isEqualToString:[FMComparisonImageCell identifierForOriginType]]){
+                UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(width * i + kGapBetweenElement * (i + 1), 10, width, width)];
+                imgView.layer.cornerRadius = imgView.frame.size.width / 2;
+                imgView.layer.borderColor = [UIColor yellowColor].CGColor;
+                imgView.layer.borderWidth = 5;
+                imgView.layer.masksToBounds = YES;
+                [self addSubview:imgView];
+                [tempArray addObject:imgView];
+            }else{
+                FMRadiusImageView *imgView = [[FMRadiusImageView alloc] initWithFrame:CGRectMake(width * i + kGapBetweenElement * (i + 1), 10, width, width)];
+                imgView.cornerRadius = imgView.frame.size.width / 2;
+                imgView.borderColor = [UIColor yellowColor];
+                imgView.borderWidth = 5;
+                [self addSubview:imgView];
+                [tempArray addObject:imgView];
+            }
+            
         }
         self.imageViewArray = [tempArray copy];
     }
@@ -49,10 +65,16 @@ static const CGFloat kGapBetweenElement = 5;
 
 -(void)setupItemWithSwitcher:(BOOL)useSystemDefault
 {
-    for(int i = 0; i < kElementInRow ; i++){
-        FMRadiusImageView *imgView = self.imageViewArray[i];
-        imgView.usedSystemDefault = useSystemDefault;
-        imgView.image = [UIImage imageNamed:[[NSString alloc] initWithFormat:@"Avatar_%d", [UIImage randomNumberStartFrom:0 ToEnd:3]]];
+    if(useSystemDefault){
+        for(int i = 0; i < kElementInRow ; i++){
+            UIImageView *imgView = self.imageViewArray[i];
+            imgView.image = [UIImage imageNamed:[[NSString alloc] initWithFormat:@"Avatar_%d", [UIImage randomNumberStartFrom:0 ToEnd:3]]];
+        }
+    }else{
+        for(int i = 0; i < kElementInRow ; i++){
+            FMRadiusImageView *imgView = self.imageViewArray[i];
+            imgView.image = [UIImage imageNamed:[[NSString alloc] initWithFormat:@"Avatar_%d", [UIImage randomNumberStartFrom:0 ToEnd:3]]];
+        }
     }
 }
 @end
