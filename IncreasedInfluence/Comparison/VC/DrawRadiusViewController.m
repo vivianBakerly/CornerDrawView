@@ -8,6 +8,7 @@
 
 #import "DrawRadiusViewController.h"
 #import "FMComparisonImageCell.h"
+#import "FMComparisonLabelCell.h"
 //#import "CornerRadiusMicro.h"
 
 @interface DrawRadiusViewController ()<UITableViewDelegate, UITableViewDataSource>
@@ -69,19 +70,35 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *identifier = [FMComparisonImageCell identifier];
-    FMComparisonImageCell *cell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
-    if(cell == nil){
-        cell = [[FMComparisonImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-        cell.backgroundColor = [UIColor grayColor];
+    if(self.compareType == FMComparisonType_Img){
+        NSString *identifier = [FMComparisonImageCell identifier];
+        FMComparisonImageCell *cell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
+        if(cell == nil){
+            cell = [[FMComparisonImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            cell.backgroundColor = [UIColor grayColor];
+        }
+        [cell setupItemWithSwitcher:self.useSystemDefault];
+        return cell;
+    }else{
+        NSString *identifier = [FMComparisonLabelCell identifier];
+        FMComparisonLabelCell *cell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
+        if(cell == nil){
+            cell = [[FMComparisonLabelCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            cell.backgroundColor = [UIColor grayColor];
+        }
+        [cell setupItemWithSwitcher:self.useSystemDefault];
+        return cell;
     }
-    [cell setupItemWithSwitcher:self.useSystemDefault];
-    return cell;
+    return [UITableViewCell new];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [FMComparisonImageCell heightForRow];
+    if(self.compareType == FMComparisonType_Img){
+        return [FMComparisonImageCell heightForRow];
+    }else{
+        return [FMComparisonLabelCell heightForRow];
+    }
 }
 
 @end

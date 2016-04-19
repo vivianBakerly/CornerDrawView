@@ -51,8 +51,10 @@
     self.usedSystemDefault = NO;
     self.borderColor = [UIColor clearColor];
     self.textColor = [UIColor blackColor];
+    self.backgroundColor = [UIColor clearColor];
     self.resultImg = [[UIImageView alloc] initWithFrame:self.bounds];
     self.resultImg.contentMode = UIViewContentModeScaleAspectFit;
+    self.resultImg.backgroundColor =[UIColor clearColor];
     [self addSubview:self.resultImg];
 }
 
@@ -69,7 +71,7 @@
 {
     [super drawRect:rect];
     if(!self.usedSystemDefault){
-//        [self p_drawWithImage:self.image];
+        [self beginDrawTextLabel];
     }
 }
 #pragma mark properties setting
@@ -92,7 +94,7 @@
 }
 
 -(void)setBorderColor:(UIColor *)borderColor {
-    if(!borderColor && borderColor != _borderColor){
+    if(borderColor && borderColor != _borderColor){
         _borderColor = borderColor;
         //颜色改变且有宽度时才绘制
         if(_borderWidth > 0){
@@ -110,7 +112,7 @@
         self.textLabel.layer.masksToBounds = YES;
         self.textLabel.layer.borderWidth = self.borderWidth;
         self.textLabel.layer.borderColor = self.borderColor.CGColor;
-        self.textLabel.backgroundColor = self.backgroundColor;
+        self.textLabel.backgroundColor = self.labelBgColor;
     }else{
         self.textLabel.layer.cornerRadius = 0;
         self.textLabel.layer.masksToBounds = NO;
@@ -122,7 +124,7 @@
 }
 
 -(void)setTextColor:(UIColor *)textColor {
-    if(!textColor && textColor != _textColor){
+    if(textColor && textColor != _textColor){
         _textColor = textColor;
         if(!self.usedSystemDefault){
             [self setNeedsDisplay];
@@ -130,10 +132,10 @@
     }
 }
 
--(void)setBackgroundColor:(UIColor *)backgroundColor
+-(void)setlabelBgColor:(UIColor *)labelBgColor
 {
-    if(!backgroundColor && backgroundColor != _backgroundColor){
-        _backgroundColor = backgroundColor;
+    if(labelBgColor && labelBgColor != _labelBgColor){
+        _labelBgColor = labelBgColor;
         if(!self.usedSystemDefault){
             [self setNeedsDisplay];
         }
@@ -142,6 +144,9 @@
 
 -(void)setText:(NSString *)text {
     _text = text;
+    if(!self.usedSystemDefault){
+        [self setNeedsDisplay];
+    }
 }
 
 -(void)beginDrawTextLabel
@@ -150,7 +155,7 @@
         [self p_drawText];
     }else{
         if([self hasBorder]){
-             [self p_drawWithImage: [UIImage drawsolidRecInFrame:self.resultImg.frame andfillWithColor:self.backgroundColor]];
+             [self p_drawWithImage: [UIImage drawsolidRecInFrame:self.resultImg.frame andfillWithColor:self.labelBgColor]];
         }else{
              [self p_drawWithImage:nil];
         }
