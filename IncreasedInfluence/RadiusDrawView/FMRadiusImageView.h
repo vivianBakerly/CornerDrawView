@@ -11,8 +11,6 @@
 
 @interface FMRadiusImageView : UIView <FMRadiusDrawProtocol>
 
--(instancetype)initWithFrame:(CGRect)frame andCornerRadius:(CGFloat)cornerRadius andBorderColor:(UIColor *)borderColor andWithBorderWidth:(CGFloat)borderWidth;
-
 @property(nonatomic, strong)UIImage *image;
 @property(nonatomic, assign) BOOL isCircle;
 @end
