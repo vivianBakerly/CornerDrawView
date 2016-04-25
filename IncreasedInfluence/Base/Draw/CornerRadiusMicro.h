@@ -5,6 +5,7 @@
 //  Created by isahuang on 16/4/18.
 //  Copyright © 2016年 isahuang. All rights reserved.
 //
+#import <UIKit/UIKit.h>
 
 #ifndef CornerRadiusMicro_h
 #define CornerRadiusMicro_h

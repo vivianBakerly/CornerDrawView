@@ -107,7 +107,7 @@
         return (value != self.sentinel.value) && (!self.image);
     };
     
-    dispatch_async(YYAsyncLayerGetDisplayQueue(), ^{
+    dispatch_async(getRadiusDisplayQueue(), ^{
         if(isCancelled()){
             return;
         }

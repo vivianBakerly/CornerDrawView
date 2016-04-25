@@ -139,7 +139,7 @@
         return (value != self.sentinel.value || self.text.length == 0);
     };
     
-    dispatch_async(YYAsyncLayerGetDisplayQueue(), ^{
+    dispatch_async(getRadiusDisplayQueue(), ^{
         if(isCancelled()){
             return;
         }
