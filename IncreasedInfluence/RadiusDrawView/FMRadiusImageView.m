@@ -73,11 +73,8 @@
     if(borderColor && borderColor != _borderColor){
         [self p_cancelAsyncDraw];
         _borderColor = borderColor;
-        
         //颜色改变且有宽度时才绘制
-        if(_borderWidth > 0){
            [self startDraw];
-        }
     }
 }
 

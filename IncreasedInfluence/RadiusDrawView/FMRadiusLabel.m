@@ -9,6 +9,7 @@
 #import "YYSentinel.h"
 #import "FMRadiusLabel.h"
 #import "UIImage+DrawRadius.h"
+#import "FMRadiusLabelTask.h"
 
 @interface FMRadiusLabel()
 @property(nonatomic, strong)YYSentinel *sentinel;
@@ -18,8 +19,8 @@
 @property(nonatomic, strong)UIImage *upperImage;
 @property(nonatomic, strong)UILabel *textLabel;
 
-@property(nonatomic, strong)NSMutableDictionary *cachedVariables;
 @property(nonatomic, assign)BOOL needReDrawText;
+@property(nonatomic, strong)FMRadiusLabelTask *lastTask;
 @end
 
 @implementation FMRadiusLabel
@@ -45,49 +46,41 @@
     self.resultImg = [[UIImageView alloc] initWithFrame:self.bounds];
     self.resultImg.contentMode = UIViewContentModeScaleAspectFit;
     self.resultImg.backgroundColor =[UIColor clearColor];
-    self.cachedVariables = [NSMutableDictionary new];
     [self addSubview:self.resultImg];
 }
 
-#pragma mark override
-//- (void)setNeedsDisplay
-//{
-//    [self p_cancelAsyncDraw];
-//    [super setNeedsDisplay];
-//}
-//
-//-(void)drawRect:(CGRect)rect
-//{
-//    [super drawRect:rect];
-//    [self beginDrawTextLabel];
-//}
 #pragma mark properties setting
-- (void)setCornerRadius:(CGFloat)cornerRadius {
+- (void)setCornerRadius:(CGFloat)cornerRadius
+{
     if(cornerRadius != _cornerRadius && (cornerRadius >= 0)){
+        [self p_cancelAsyncDraw];
         _cornerRadius = cornerRadius;
         [self restartDraw];
     }
 }
 
--(void)setBorderWidth:(CGFloat)borderWidth {
+-(void)setBorderWidth:(CGFloat)borderWidth
+{
     if(_borderWidth != borderWidth && borderWidth >= 0){
+        [self p_cancelAsyncDraw];
         _borderWidth = borderWidth;
         [self restartDraw];
     }
 }
 
--(void)setBorderColor:(UIColor *)borderColor {
+-(void)setBorderColor:(UIColor *)borderColor
+{
     if(borderColor && borderColor != _borderColor){
+        [self p_cancelAsyncDraw];
         _borderColor = borderColor;
-        //颜色改变且有宽度时才绘制
-        if(_borderWidth > 0){
-            [self restartDraw];
-        }
+        [self restartDraw];
     }
 }
 
--(void)setTextColor:(UIColor *)textColor {
+-(void)setTextColor:(UIColor *)textColor
+{
     if(textColor && textColor != _textColor){
+        [self p_cancelAsyncDraw];
         _textColor = textColor;
         [self restartDraw];
     }
@@ -96,13 +89,16 @@
 -(void)setlabelBgColor:(UIColor *)labelBgColor
 {
     if(labelBgColor && labelBgColor != _labelBgColor){
+        [self p_cancelAsyncDraw];
         _labelBgColor = labelBgColor;
         [self restartDraw];
     }
 }
 
--(void)setText:(NSString *)text {
+-(void)setText:(NSString *)text
+{
     if(text && text != _text){
+        [self p_cancelAsyncDraw];
         _text = text;
         [self restartDraw];
     }
@@ -111,10 +107,15 @@
 -(void)beginDrawTextLabel
 {
     if([self hasBorder]){
-        [self p_drawWithImage: [UIImage drawsolidRecInFrame:self.resultImg.frame andfillWithColor:self.labelBgColor]];
+        [self p_drawWithImage: [UIImage drawsolidRecInFrame:self.resultImg.frame andfillWithColor:self.labelBgColor] andCurrentTask:[self createCurrentTask]];
     }else{
-        [self p_drawWithImage:nil];
+        [self p_drawWithImage:nil andCurrentTask:[self createCurrentTask]];
     }
+}
+
+- (FMRadiusLabelTask *)createCurrentTask
+{
+    return [[FMRadiusLabelTask alloc] initWithFrame:self.frame andCornerRadius:self.cornerRadius andBorderWidth:self.borderWidth  andBorderColor:self.borderColor andTextColor:self.textColor andlabelBgColor:self.labelBgColor andText:self.text];
 }
 
 -(BOOL)hasBorder
@@ -123,7 +124,7 @@
 }
 
 #pragma mark draw
--(void)p_drawWithImage:(UIImage *)img {
+-(void)p_drawWithImage:(UIImage *)img andCurrentTask:(FMRadiusLabelTask *)currentTask{
     int32_t value = self.sentinel.value;
     BOOL (^isCancelled)() = ^BOOL(){
         return (value != self.sentinel.value);
@@ -135,8 +136,8 @@
         }
         CGRect drawFrame = self.resultImg.frame;
         //上层图片
-        BOOL needDrawUpper = [self needReDrawUpperImg];
-        BOOL needDrawBg = [self needReDrawBgImg];
+        BOOL needDrawUpper = [self needReDrawUpperImg:currentTask];
+        BOOL needDrawBg = [self needReDrawBgImg:currentTask];
         
         if(needDrawBg || needDrawUpper){
             UIImage *final;
@@ -159,80 +160,73 @@
                 self.upperImage = topImg;
                 self.borderImage = bg;
                 [self p_drawText];
-                [self cachedCurrentVariables];
+                self.lastTask = currentTask;
             });
         }
     });
 }
 
-- (void)cachedCurrentVariables
-{
-    self.cachedVariables[RadiusKBorderColor] = self.borderColor;
-    self.cachedVariables[RadiusKBorderWidth] = @(self.borderWidth);
-    self.cachedVariables[RadiusKFrame] = [NSValue valueWithCGRect:self.frame];
-    self.cachedVariables[RadiusKCornerRadius] = @(self.cornerRadius);
-    self.cachedVariables[RadiusKLabelText] = self.text;
-    self.cachedVariables[RadiusKLabelTextColor] = self.textColor;
-    self.cachedVariables[RadiusKLabelBgColor] = self.labelBgColor;
-}
 
--(BOOL)needReDrawBgImg
+-(BOOL)needReDrawBgImg:(FMRadiusLabelTask *)currentTask
 {
-    if([self.cachedVariables[RadiusKCornerRadius] floatValue] != self.cornerRadius){
+    if(self.lastTask.cornerRadius != currentTask.cornerRadius){
         return YES;
     }
     
-    CGRect a = [self.cachedVariables[RadiusKFrame] CGRectValue];
-    if(!CGSizeEqualToSize(a.size, self.frame.size) || !CGPointEqualToPoint(a.origin, self.frame.origin)){
+    CGRect a = self.lastTask.frame;
+    CGRect b = currentTask.frame;
+    
+    if(!CGSizeEqualToSize(a.size, b.size) || !CGPointEqualToPoint(a.origin, b.origin)){
         return YES;
     }
     
-    if(self.cachedVariables[RadiusKBorderColor] != self.borderColor){
+    if(self.lastTask.borderColor != currentTask.borderColor){
         return YES;
     }
     
     return NO;
 }
 
--(BOOL)needReDrawUpperImg
+-(BOOL)needReDrawUpperImg:(FMRadiusLabelTask *)currentTask
 {
-    if([self.cachedVariables[RadiusKCornerRadius] floatValue] != self.cornerRadius){
+    if(self.lastTask.cornerRadius != currentTask.cornerRadius){
         return YES;
     }
     
-    CGRect a = [self.cachedVariables[RadiusKFrame] CGRectValue];
-    if(!CGSizeEqualToSize(a.size, self.frame.size) || !CGPointEqualToPoint(a.origin, self.frame.origin)){
+    CGRect a = self.lastTask.frame;
+    CGRect b = currentTask.frame;
+    
+    if(!CGSizeEqualToSize(a.size, b.size) || !CGPointEqualToPoint(a.origin, b.origin)){
         return YES;
     }
     
-    if([self.cachedVariables[RadiusKBorderWidth] floatValue] != self.borderWidth){
+    if(self.lastTask.borderWidth != currentTask.borderWidth){
         return YES;
     }
     
-    if(self.cachedVariables[RadiusKLabelBgColor] != self.labelBgColor){
+    if(self.lastTask.labelBgColor != currentTask.labelBgColor){
         return YES;
     }
     return NO;
 }
 
-- (BOOL)needReDrawText
+- (BOOL)needReDrawText:(FMRadiusLabelTask *)currentTask
 {
-    if(self.cachedVariables[RadiusKLabelText] != self.text){
+    if(self.lastTask.text != self.text){
         return YES;
     }
-    
+
     //tbd font
     return NO;
 }
 
 -(void)restartDraw
 {
-    [self p_cancelAsyncDraw];
     [self beginDrawTextLabel];
 }
 
 -(void)p_drawText {
-    if(self.text.length > 0 && [self needReDrawText]){
+    if(self.text.length > 0){
         [self.textLabel removeFromSuperview];
         UILabel *label = [[UILabel alloc] initWithFrame:self.resultImg.bounds];
         label.font = [UIFont systemFontOfSize:14];

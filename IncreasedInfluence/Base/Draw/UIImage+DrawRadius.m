@@ -37,6 +37,7 @@
     return image;
 }
 
+//两张图片叠加
 + (UIImage *)mixTopImg:(UIImage *)topImg withBgImg:(UIImage *)bg inFrame:(CGRect)frame WithBorderWidth:(CGFloat)borderWidth{
     UIGraphicsBeginImageContextWithOptions(frame.size, NO, [UIScreen mainScreen].scale);
     CGRect outerBounds = CGRectMake(0, 0, frame.size.width, frame.size.height);
