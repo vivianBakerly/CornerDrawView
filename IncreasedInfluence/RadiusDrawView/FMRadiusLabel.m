@@ -14,7 +14,6 @@
 @interface FMRadiusLabel()
 @property(nonatomic, strong)YYSentinel *sentinel;
 @property(nonatomic, strong)UIImageView *resultImg;
-
 @property(nonatomic, strong)UIImage *borderImage;
 @property(nonatomic, strong)UIImage *upperImage;
 @property(nonatomic, strong)UILabel *textLabel;
@@ -153,7 +152,7 @@
             UIImage *final;
             UIImage *topImg = needDrawUpper ? [UIImage drawCornerRadiusWithBgImg:img withBorderWidth:self.borderWidth andCorderRadius:self.cornerRadius inFrame:drawFrame] : self.upperImage;
             UIImage *bg;
-            if([self hasBorder]){
+            if([self hasBorder] && !isCancelled()){
                 //下层图片，用于边框
                 bg = needDrawBg ? [UIImage drawCornerRadiusWithBgImg:[UIImage drawsolidRecInFrame:drawFrame andfillWithColor:self.borderColor] withBorderWidth:0 andCorderRadius:self.cornerRadius inFrame:drawFrame] : self.borderImage;
                 final = [UIImage mixTopImg:topImg withBgImg:bg inFrame:drawFrame WithBorderWidth:self.borderWidth];

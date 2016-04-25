@@ -15,7 +15,7 @@
 
 /// Global display queue, used for content rendering.
 static dispatch_queue_t YYAsyncLayerGetDisplayQueue() {
-#define MAX_QUEUE_COUNT 16
+#define MAX_QUEUE_COUNT 1
     static int queueCount;
     static dispatch_queue_t queues[MAX_QUEUE_COUNT];
     static dispatch_once_t onceToken;
