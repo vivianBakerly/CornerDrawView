@@ -9,6 +9,7 @@
 #import "YYSentinel.h"
 #import "FMRadiusImageView.h"
 #import "UIImage+DrawRadius.h"
+#import "FMRadiusImageTask.h"
 
 @interface FMRadiusImageView()
 @property(nonatomic, strong)YYSentinel *sentinel;
@@ -19,6 +20,7 @@
 //frame, cornerRadius, borderWidth决定是否重新绘制
 @property(nonatomic, strong)UIImage *cornerUserImage;
 @property(nonatomic, strong)NSMutableDictionary *cachedVariables;
+@property(nonatomic, strong)FMRadiusImageTask *lastTask;
 
 @end
 @implementation FMRadiusImageView
@@ -61,24 +63,28 @@
 #pragma mark properties setting
 - (void)setCornerRadius:(CGFloat)cornerRadius {
     if(cornerRadius != _cornerRadius && (cornerRadius >= 0)){
+        [self p_cancelAsyncDraw];
         _cornerRadius = cornerRadius;
-        [self restartDraw];
+        [self startDraw];
     }
 }
 
 -(void)setBorderWidth:(CGFloat)borderWidth {
     if(_borderWidth != borderWidth && borderWidth >= 0){
+        [self p_cancelAsyncDraw];
         _borderWidth = borderWidth;
-        [self restartDraw];
+        [self startDraw];
     }
 }
 
 -(void)setBorderColor:(UIColor *)borderColor {
     if(borderColor && borderColor != _borderColor){
+        [self p_cancelAsyncDraw];
         _borderColor = borderColor;
+        
         //颜色改变且有宽度时才绘制
         if(_borderWidth > 0){
-           [self restartDraw];
+           [self startDraw];
         }
     }
  }
@@ -94,13 +100,14 @@
 
 - (void)setImage:(UIImage *)image {
     if(image){
+        [self p_cancelAsyncDraw];
         _image = image;
-        [self restartDraw];
+        [self startDraw];
     }
 }
 
 #pragma draw
--(void)p_drawWithImage {
+-(void)p_drawWithImageWithTask:(FMRadiusImageTask *)draftTask {
 //    [self.sentinel increase];
     int32_t value = self.sentinel.value;
     BOOL (^isCancelled)() = ^BOOL(){
@@ -111,18 +118,18 @@
         if(isCancelled()){
             return;
         }
-        BOOL needRedrawUserImage = [self needRedrawUserImage];
-        BOOL needRedrawCornerImage = [self needRedrawCornerImage];
+        BOOL needRedrawUserImage = [self needRedrawUserImageCompareTo:draftTask];
+        BOOL needRedrawCornerImage = [self needRedrawCornerImageCompareTo:draftTask];
         
         if(needRedrawCornerImage || needRedrawUserImage){
             CGRect drawFrame = self.resultImg.frame;
             //上层图片
             UIImage *final;
-            UIImage *top = (self.needRedrawUserImage) ?  [UIImage drawCornerRadiusWithBgImg:self.image withBorderWidth:self.borderWidth andCorderRadius:self.cornerRadius inFrame:drawFrame] : self.cornerUserImage;
+            UIImage *top = (needRedrawUserImage) ?  [UIImage drawCornerRadiusWithBgImg:self.image withBorderWidth:self.borderWidth andCorderRadius:self.cornerRadius inFrame:drawFrame] : self.cornerUserImage;
             UIImage *bg;
             if(self.borderWidth > 0){
                 //下层图片，用于边框
-                bg = (self.needRedrawCornerImage) ? [UIImage drawCornerRadiusWithBgImg:[UIImage drawsolidRecInFrame:drawFrame andfillWithColor:self.borderColor] withBorderWidth:0 andCorderRadius:self.cornerRadius inFrame:drawFrame] : self.cornerBorderImage;
+                bg = (needRedrawCornerImage) ? [UIImage drawCornerRadiusWithBgImg:[UIImage drawsolidRecInFrame:drawFrame andfillWithColor:self.borderColor] withBorderWidth:0 andCorderRadius:self.cornerRadius inFrame:drawFrame] : self.cornerBorderImage;
                 final = [UIImage mixTopImg:top withBgImg:bg inFrame:drawFrame WithBorderWidth:self.borderWidth];
             }else{
                 final = top;
@@ -134,62 +141,56 @@
                 self.resultImg.image = final;
                 self.cornerUserImage = top;
                 self.cornerBorderImage = bg;
-                [self cachedCurrentVariables];
+                self.lastTask = draftTask;
+//                [self cachedCurrentVariables];
             });
         }
     });
 }
 
-- (void)cachedCurrentVariables
-{
-    self.cachedVariables[RadiusKBorderColor] = self.borderColor ? : [UIColor clearColor];
-    self.cachedVariables[RadiusKBorderWidth] = @(self.borderWidth);
-    self.cachedVariables[RadiusKFrame] = [NSValue valueWithCGRect:self.frame];
-    self.cachedVariables[RadiusKCornerRadius] = @(self.cornerRadius);
-    self.cachedVariables[RadiusKImage] = self.image ? :[UIImage new];
-}
-
--(BOOL)needRedrawUserImage {
+-(BOOL)needRedrawUserImageCompareTo:(FMRadiusImageTask *)currentTask {
 //    return YES;
-    if([self.cachedVariables[RadiusKCornerRadius] floatValue] != self.cornerRadius){
+    if(self.lastTask.cornerRadius != currentTask.cornerRadius){
         return YES;
     }
     
-    CGRect a = [self.cachedVariables[RadiusKFrame] CGRectValue];
-    if(!CGSizeEqualToSize(a.size, self.frame.size) || !CGPointEqualToPoint(a.origin, self.frame.origin)){
+    CGRect a = self.lastTask.frame;
+    CGRect b = currentTask.frame;
+    if(!CGSizeEqualToSize(a.size, b.size) || !CGPointEqualToPoint(a.origin, b.origin)){
         return YES;
     }
     
-    if([self.cachedVariables[RadiusKBorderWidth] floatValue] != self.borderWidth){
+    if(self.lastTask.borderWidth != currentTask.borderWidth){
         return YES;
     }
     
-    if(self.cachedVariables[RadiusKImage] != self.image){
+    if(self.lastTask.image != currentTask.image){
         return YES;
     }
     
     return NO;
 }
 
--(void)restartDraw
+-(void)startDraw
 {
-    [self p_cancelAsyncDraw];
-    [self p_drawWithImage];
+    [self p_drawWithImageWithTask:[[FMRadiusImageTask alloc] initWithFrame:self.frame andCornerRadius:self.cornerRadius andBorderWidth:self.borderWidth andImg:self.image andBorderColor:self.borderColor]];
 }
 
 //tbd: borderWidth
-- (BOOL)needRedrawCornerImage {
+- (BOOL)needRedrawCornerImageCompareTo:(FMRadiusImageTask *)currentTask {
 //    return YES;
-    if([self.cachedVariables[RadiusKCornerRadius] floatValue] != self.cornerRadius){
+    if(self.lastTask.cornerRadius != currentTask.cornerRadius){
         return YES;
     }
     
-    CGRect a = [self.cachedVariables[RadiusKFrame] CGRectValue];
-    if(!CGSizeEqualToSize(a.size, self.frame.size) || !CGPointEqualToPoint(a.origin, self.frame.origin)){
+    CGRect a = self.lastTask.frame;
+    CGRect b = currentTask.frame;
+    if(!CGSizeEqualToSize(a.size, b.size) || !CGPointEqualToPoint(a.origin, b.origin)){
         return YES;
     }
+
     
-    if(self.cachedVariables[RadiusKBorderColor] != self.borderColor){
+    if(currentTask.borderColor != self.borderColor){
         return YES;
     }
     return NO;
