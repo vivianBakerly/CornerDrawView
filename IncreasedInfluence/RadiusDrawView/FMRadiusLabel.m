@@ -42,6 +42,7 @@
     self.sentinel = [YYSentinel new];
     self.borderColor = [UIColor clearColor];
     self.textColor = [UIColor blackColor];
+    self.font = [UIFont systemFontOfSize:14];
     self.backgroundColor = [UIColor clearColor];
     self.resultImg = [[UIImageView alloc] initWithFrame:self.bounds];
     self.resultImg.contentMode = UIViewContentModeScaleAspectFit;
@@ -73,6 +74,15 @@
     if(borderColor && borderColor != _borderColor){
         [self p_cancelAsyncDraw];
         _borderColor = borderColor;
+        [self restartDraw];
+    }
+}
+
+-(void)setFont:(UIFont *)font
+{
+    if(font != _font){
+        [self p_cancelAsyncDraw];
+        _font = font;
         [self restartDraw];
     }
 }
@@ -127,7 +137,7 @@
 -(void)p_drawWithImage:(UIImage *)img andCurrentTask:(FMRadiusLabelTask *)currentTask{
     int32_t value = self.sentinel.value;
     BOOL (^isCancelled)() = ^BOOL(){
-        return (value != self.sentinel.value);
+        return (value != self.sentinel.value || self.text.length == 0);
     };
     
     dispatch_async(YYAsyncLayerGetDisplayQueue(), ^{
@@ -156,11 +166,10 @@
                     return;
                 }
                 self.resultImg.image = final;
-                //cache
                 self.upperImage = topImg;
                 self.borderImage = bg;
-                [self p_drawText];
                 self.lastTask = currentTask;
+                [self p_drawText];
             });
         }
     });
@@ -235,8 +244,6 @@
         label.textAlignment = NSTextAlignmentCenter;
         self.textLabel = label;
         [self addSubview:self.textLabel];
-    }else{
-        //nothing
     }
 }
 

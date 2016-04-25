@@ -14,4 +14,5 @@
 @property(nonatomic, strong)NSString *text;
 @property(nonatomic, strong)UIColor *textColor;
 @property(nonatomic, strong)UIColor *labelBgColor;
+@property(nonatomic, strong)UIFont *font;
 @end
