@@ -18,7 +18,6 @@
 @property(nonatomic, strong)UIImage *upperImage;
 @property(nonatomic, strong)UILabel *textLabel;
 
-@property(nonatomic, assign)BOOL needReDrawText;
 @property(nonatomic, strong)FMRadiusLabelTask *lastTask;
 @end
 
@@ -49,87 +48,9 @@
     [self addSubview:self.resultImg];
 }
 
-#pragma mark properties setting
-- (void)setCornerRadius:(CGFloat)cornerRadius
+-(void)dealloc
 {
-    if(cornerRadius != _cornerRadius && (cornerRadius >= 0)){
-        [self p_cancelAsyncDraw];
-        _cornerRadius = cornerRadius;
-        [self restartDraw];
-    }
-}
-
--(void)setBorderWidth:(CGFloat)borderWidth
-{
-    if(_borderWidth != borderWidth && borderWidth >= 0){
-        [self p_cancelAsyncDraw];
-        _borderWidth = borderWidth;
-        [self restartDraw];
-    }
-}
-
--(void)setBorderColor:(UIColor *)borderColor
-{
-    if(borderColor && borderColor != _borderColor){
-        [self p_cancelAsyncDraw];
-        _borderColor = borderColor;
-        [self restartDraw];
-    }
-}
-
--(void)setFont:(UIFont *)font
-{
-    if(font != _font){
-        [self p_cancelAsyncDraw];
-        _font = font;
-        [self restartDraw];
-    }
-}
-
--(void)setTextColor:(UIColor *)textColor
-{
-    if(textColor && textColor != _textColor){
-        [self p_cancelAsyncDraw];
-        _textColor = textColor;
-        [self restartDraw];
-    }
-}
-
--(void)setlabelBgColor:(UIColor *)labelBgColor
-{
-    if(labelBgColor && labelBgColor != _labelBgColor){
-        [self p_cancelAsyncDraw];
-        _labelBgColor = labelBgColor;
-        [self restartDraw];
-    }
-}
-
--(void)setText:(NSString *)text
-{
-    if(text && text != _text){
-        [self p_cancelAsyncDraw];
-        _text = text;
-        [self restartDraw];
-    }
-}
-
--(void)beginDrawTextLabel
-{
-    if([self hasBorder]){
-        [self p_drawWithImage: [UIImage drawsolidRecInFrame:self.resultImg.frame andfillWithColor:self.labelBgColor] andCurrentTask:[self createCurrentTask]];
-    }else{
-        [self p_drawWithImage:nil andCurrentTask:[self createCurrentTask]];
-    }
-}
-
-- (FMRadiusLabelTask *)createCurrentTask
-{
-    return [[FMRadiusLabelTask alloc] initWithFrame:self.frame andCornerRadius:self.cornerRadius andBorderWidth:self.borderWidth  andBorderColor:self.borderColor andTextColor:self.textColor andlabelBgColor:self.labelBgColor andText:self.text];
-}
-
--(BOOL)hasBorder
-{
-    return (self.borderWidth > 0);
+    
 }
 
 #pragma mark draw
@@ -228,11 +149,6 @@
     return NO;
 }
 
--(void)restartDraw
-{
-    [self beginDrawTextLabel];
-}
-
 -(void)p_drawText {
     if(self.text.length > 0){
         [self.textLabel removeFromSuperview];
@@ -251,8 +167,88 @@
     [self.sentinel increase];
 }
 
--(void)dealloc
+
+#pragma mark properties setting
+- (void)setCornerRadius:(CGFloat)cornerRadius
 {
-    
+    if(cornerRadius != _cornerRadius && (cornerRadius >= 0)){
+        [self p_cancelAsyncDraw];
+        _cornerRadius = cornerRadius;
+        [self beginDrawTextLabel];
+    }
 }
+
+-(void)setBorderWidth:(CGFloat)borderWidth
+{
+    if(_borderWidth != borderWidth && borderWidth >= 0){
+        [self p_cancelAsyncDraw];
+        _borderWidth = borderWidth;
+        [self beginDrawTextLabel];
+    }
+}
+
+-(void)setBorderColor:(UIColor *)borderColor
+{
+    if(borderColor && borderColor != _borderColor){
+        [self p_cancelAsyncDraw];
+        _borderColor = borderColor;
+        [self beginDrawTextLabel];
+    }
+}
+
+-(void)setFont:(UIFont *)font
+{
+    if(font != _font){
+        [self p_cancelAsyncDraw];
+        _font = font;
+        [self beginDrawTextLabel];
+    }
+}
+
+-(void)setTextColor:(UIColor *)textColor
+{
+    if(textColor && textColor != _textColor){
+        [self p_cancelAsyncDraw];
+        _textColor = textColor;
+        [self beginDrawTextLabel];
+    }
+}
+
+-(void)setlabelBgColor:(UIColor *)labelBgColor
+{
+    if(labelBgColor && labelBgColor != _labelBgColor){
+        [self p_cancelAsyncDraw];
+        _labelBgColor = labelBgColor;
+        [self beginDrawTextLabel];
+    }
+}
+
+-(void)setText:(NSString *)text
+{
+    if(text && text != _text){
+        [self p_cancelAsyncDraw];
+        _text = text;
+        [self beginDrawTextLabel];
+    }
+}
+
+-(void)beginDrawTextLabel
+{
+    if([self hasBorder]){
+        [self p_drawWithImage: [UIImage drawsolidRecInFrame:self.resultImg.frame andfillWithColor:self.labelBgColor] andCurrentTask:[self createCurrentTask]];
+    }else{
+        [self p_drawWithImage:nil andCurrentTask:[self createCurrentTask]];
+    }
+}
+
+- (FMRadiusLabelTask *)createCurrentTask
+{
+    return [[FMRadiusLabelTask alloc] initWithFrame:self.frame andCornerRadius:self.cornerRadius andBorderWidth:self.borderWidth  andBorderColor:self.borderColor andTextColor:self.textColor andlabelBgColor:self.labelBgColor andText:self.text];
+}
+
+-(BOOL)hasBorder
+{
+    return (self.borderWidth > 0);
+}
+
 @end

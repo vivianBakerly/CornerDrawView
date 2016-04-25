@@ -49,57 +49,8 @@
     [self addSubview:self.resultImg];
 }
 
-#pragma mark properties setting
-- (void)setCornerRadius:(CGFloat)cornerRadius
-{
-    if(cornerRadius != _cornerRadius && (cornerRadius >= 0)){
-        [self p_cancelAsyncDraw];
-        _cornerRadius = cornerRadius;
-        [self startDraw];
-    }
-}
 
--(void)setBorderWidth:(CGFloat)borderWidth
-{
-    if(_borderWidth != borderWidth && borderWidth >= 0){
-        [self p_cancelAsyncDraw];
-        _borderWidth = borderWidth;
-        [self startDraw];
-    }
-}
-
--(void)setBorderColor:(UIColor *)borderColor
-{
-    if(borderColor && borderColor != _borderColor){
-        [self p_cancelAsyncDraw];
-        _borderColor = borderColor;
-        //颜色改变且有宽度时才绘制
-           [self startDraw];
-    }
-}
-
-- (void)setIsCircle:(BOOL)isCircle
-{
-    [self p_cancelAsyncDraw];
-    _isCircle = isCircle;
-    if(isCircle){
-        CGSize size = self.bounds.size;
-        //取小的值, 避免裁剪过度
-        self.cornerRadius = (size.width <= size.height) ? size.width : size.height;
-    }
-    [self startDraw];
-}
-
-- (void)setImage:(UIImage *)image
-{
-    if(image){
-        [self p_cancelAsyncDraw];
-        _image = image;
-        [self startDraw];
-    }
-}
-
-#pragma draw
+#pragma mark draw
 -(void)p_drawWithImageWithTask:(FMRadiusImageTask *)draftTask
 {
     int32_t value = self.sentinel.value;
@@ -191,6 +142,55 @@
 - (void)p_cancelAsyncDraw
 {
     [self.sentinel increase];
+}
+
+#pragma mark properties setting
+- (void)setCornerRadius:(CGFloat)cornerRadius
+{
+    if(cornerRadius != _cornerRadius && (cornerRadius >= 0)){
+        [self p_cancelAsyncDraw];
+        _cornerRadius = cornerRadius;
+        [self startDraw];
+    }
+}
+
+-(void)setBorderWidth:(CGFloat)borderWidth
+{
+    if(_borderWidth != borderWidth && borderWidth >= 0){
+        [self p_cancelAsyncDraw];
+        _borderWidth = borderWidth;
+        [self startDraw];
+    }
+}
+
+-(void)setBorderColor:(UIColor *)borderColor
+{
+    if(borderColor && borderColor != _borderColor){
+        [self p_cancelAsyncDraw];
+        _borderColor = borderColor;
+        [self startDraw];
+    }
+}
+
+- (void)setIsCircle:(BOOL)isCircle
+{
+    [self p_cancelAsyncDraw];
+    _isCircle = isCircle;
+    if(isCircle){
+        CGSize size = self.bounds.size;
+        //取小的值, 避免裁剪过度
+        self.cornerRadius = (size.width <= size.height) ? size.width : size.height;
+    }
+    [self startDraw];
+}
+
+- (void)setImage:(UIImage *)image
+{
+    if(image){
+        [self p_cancelAsyncDraw];
+        _image = image;
+        [self startDraw];
+    }
 }
 
 @end
