@@ -13,4 +13,6 @@
 
 @property(nonatomic, strong)UIImage *image;
 @property(nonatomic, assign) BOOL isCircle;
+
+
 @end

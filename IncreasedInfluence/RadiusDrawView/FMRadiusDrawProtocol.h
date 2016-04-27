@@ -7,17 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-static NSString *const RadiusKCornerRadius = @"RadiusKCornerRadius";
-static NSString *const RadiusKBorderWidth = @"RadiusKBorderWidth";
-static NSString *const RadiusKBorderColor = @"RadiusKBorderColor";
-static NSString *const RadiusKFrame = @"RadiusKFrame";
-
-static NSString *const RadiusKLabelBgColor = @"RadiusKLabelBgColor";
-static NSString *const RadiusKLabelTextColor = @"RadiusKLabelTextColor";
-static NSString *const RadiusKLabelText = @"RadiusKLabelText";
-
-static NSString *const RadiusKImage = @"RadiusKImage";
-
 @protocol FMRadiusDrawProtocol <NSObject>
 
 @required

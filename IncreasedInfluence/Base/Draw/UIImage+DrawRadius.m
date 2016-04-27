@@ -7,13 +7,14 @@
 //
 
 #import "UIImage+DrawRadius.h"
+#define SCREEN_SCALE    [UIScreen mainScreen].scale
 
 @implementation UIImage (DrawRadius)
 
 //把一个图片按照cornerRadius和borderWidth画成带边框圆角图片
 + (UIImage *)drawCornerRadiusWithBgImg:(UIImage *)img withBorderWidth:(CGFloat)borderWidth andCorderRadius:(CGFloat)cornerRadius inFrame:(CGRect)frame{
     CGSize size = CGSizeMake(frame.size.width - 2 * borderWidth, frame.size.height - 2 * borderWidth);
-    UIGraphicsBeginImageContextWithOptions(size, NO, [UIScreen mainScreen].scale);
+    UIGraphicsBeginImageContextWithOptions(size, NO, SCREEN_SCALE);
     CGRect bounds = CGRectMake(0, 0, frame.size.width - 2 * borderWidth, frame.size.height - 2 * borderWidth);
     [[UIColor clearColor] set];
     UIRectFill(bounds);
@@ -28,7 +29,7 @@
 
 //画实心方形图
 + (UIImage *)drawsolidRecInFrame:(CGRect)frame andfillWithColor:(UIColor *)color{
-    UIGraphicsBeginImageContextWithOptions(frame.size, NO, [UIScreen mainScreen].scale);
+    UIGraphicsBeginImageContextWithOptions(frame.size, NO, SCREEN_SCALE);
     [color set];
     CGRect bounds = CGRectMake(0, 0, frame.size.width, frame.size.height);
     UIRectFill(bounds);
@@ -39,7 +40,7 @@
 
 //两张图片叠加
 + (UIImage *)mixTopImg:(UIImage *)topImg withBgImg:(UIImage *)bg inFrame:(CGRect)frame WithBorderWidth:(CGFloat)borderWidth{
-    UIGraphicsBeginImageContextWithOptions(frame.size, NO, [UIScreen mainScreen].scale);
+    UIGraphicsBeginImageContextWithOptions(frame.size, NO, SCREEN_SCALE);
     CGRect outerBounds = CGRectMake(0, 0, frame.size.width, frame.size.height);
     CGFloat width = borderWidth;
     CGRect innerBounds = CGRectMake(width, width, frame.size.width - 2 * width, frame.size.height - 2 * width);
