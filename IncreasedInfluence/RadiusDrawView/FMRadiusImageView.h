@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "FMRadiusDrawProtocol.h"
 
+#define useSetup 1
+
 @interface FMRadiusImageView : UIView <FMRadiusDrawProtocol>
 
 @property(nonatomic, strong)UIImage *image;
 @property(nonatomic, assign) BOOL isCircle;
 
-
+- (void)setupWithCornerRadius:(CGFloat)cornerRadius andBorderWidth:(CGFloat)borderWidth andBorderColor:(UIColor *)borderColor andImage:(UIImage *)image;
 @end

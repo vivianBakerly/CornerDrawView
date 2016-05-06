@@ -11,6 +11,8 @@
 #import "UIImage+DrawRadius.h"
 #import "FMRadiusImageTask.h"
 
+
+
 @interface FMRadiusImageView()
 @property(nonatomic, strong)YYSentinel *sentinel;
 @property(nonatomic, strong)UIImageView *resultImg;
@@ -36,6 +38,14 @@
         [self initSettings];
     }
     return self;
+}
+
+- (void)setupWithCornerRadius:(CGFloat)cornerRadius andBorderWidth:(CGFloat)borderWidth andBorderColor:(UIColor *)borderColor andImage:(UIImage *)image
+{
+    self.borderColor = borderColor;
+    self.borderWidth = borderWidth;
+    self.cornerRadius = cornerRadius;
+    self.image = image;
 }
 
 - (void)initSettings
@@ -147,6 +157,11 @@
 #pragma mark properties setting
 - (void)setCornerRadius:(CGFloat)cornerRadius
 {
+    if(useSetup){
+        _cornerRadius = cornerRadius;
+        return ;
+    }
+    
     if(cornerRadius != _cornerRadius && (cornerRadius >= 0)){
         [self p_cancelAsyncDraw];
         _cornerRadius = cornerRadius;
@@ -156,6 +171,10 @@
 
 -(void)setBorderWidth:(CGFloat)borderWidth
 {
+    if(useSetup){
+        _borderWidth = borderWidth;
+        return ;
+    }
     if(_borderWidth != borderWidth && borderWidth >= 0){
         [self p_cancelAsyncDraw];
         _borderWidth = borderWidth;
@@ -165,6 +184,11 @@
 
 -(void)setBorderColor:(UIColor *)borderColor
 {
+    if(useSetup){
+        _borderColor = borderColor;
+        return ;
+    }
+    
     if(borderColor && borderColor != _borderColor){
         [self p_cancelAsyncDraw];
         _borderColor = borderColor;
@@ -186,6 +210,10 @@
 
 - (void)setImage:(UIImage *)image
 {
+    if(useSetup){
+        _image = image;
+        return ;
+    }
     if(image){
         [self p_cancelAsyncDraw];
         _image = image;
