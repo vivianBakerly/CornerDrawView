@@ -13,14 +13,14 @@
 @interface FMRadiusImageView()
 /**
  *  value:     每次绘制任务的唯一标识符
- *  resultImg:
+ *  resultImg: 最终展示的图片ImageView
+ *  cornerBorderImage: 下层图片，用于边框，borderWidth决定是否绘制，frame和borderColor, cornerRadius决定是否重新绘制
+ *  cornerUserImage: 上层图片，用于传入的图片，frame, cornerRadius, borderWidth决定是否重新绘制
+ *  lastTask: 上次成功绘制的任务，用于比较决定是否需要重绘或使用上次的结果
  */
 @property(nonatomic, assign)int32_t value;
 @property(nonatomic, strong)UIImageView *resultImg;
-
-//下层图片，用于边框，borderWidth决定是否绘制，frame和borderColor, cornerRadius决定是否重新绘制
 @property(nonatomic, strong)UIImage *cornerBorderImage;
-//上层图片，用于传入的图片，frame, cornerRadius, borderWidth决定是否重新绘制
 @property(nonatomic, strong)UIImage *cornerUserImage;
 @property(nonatomic, strong)FMRadiusImageTask *lastTask;
 
@@ -85,7 +85,6 @@
         
         if(needRedrawCornerImage || needRedrawUserImage){
             CGRect drawFrame = self.resultImg.frame;
-            //上层图片
             UIImage *final;
             UIImage *top = (needRedrawUserImage) ?  [UIImage drawCornerRadiusWithBgImg:self.image withBorderWidth:self.borderWidth andCorderRadius:self.cornerRadius inFrame:drawFrame] : self.cornerUserImage;
             UIImage *bg;
