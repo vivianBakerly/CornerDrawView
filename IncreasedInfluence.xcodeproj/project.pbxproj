@@ -7,19 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FB468B1C1CCE18990089F9EA /* FMRadiusLabelTask.m in Sources */ = {isa = PBXBuildFile; fileRef = FB468B1A1CCE18990089F9EA /* FMRadiusLabelTask.m */; };
-		FB484BA81CCA502C00F2251A /* FMComparisonLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB484BA11CCA502C00F2251A /* FMComparisonLabelCell.m */; };
 		FB484BA91CCA502C00F2251A /* FMComparisonImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB484BA31CCA502C00F2251A /* FMComparisonImageCell.m */; };
-		FB484BAA1CCA502C00F2251A /* FMComparisonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB484BA61CCA502C00F2251A /* FMComparisonCell.m */; };
 		FB484BAD1CCA503A00F2251A /* DrawRadiusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB484BAB1CCA503A00F2251A /* DrawRadiusViewController.m */; };
-		FB484BB31CCA504C00F2251A /* FMRadiusLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = FB484BAE1CCA504C00F2251A /* FMRadiusLabel.m */; };
 		FB484BB41CCA504C00F2251A /* FMRadiusImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB484BB01CCA504C00F2251A /* FMRadiusImageView.m */; };
 		FB484BB71CCA505A00F2251A /* FMSketchpadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB484BB51CCA505A00F2251A /* FMSketchpadViewController.m */; };
-		FB484BC01CCA507C00F2251A /* YYSentinel.m in Sources */ = {isa = PBXBuildFile; fileRef = FB484BB91CCA507C00F2251A /* YYSentinel.m */; };
 		FB484BC11CCA507C00F2251A /* FMEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB484BBB1CCA507C00F2251A /* FMEntryViewController.m */; };
 		FB484BC21CCA507C00F2251A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB484BBE1CCA507C00F2251A /* AppDelegate.m */; };
 		FB484BC71CCA509600F2251A /* UIImage+DrawRadius.m in Sources */ = {isa = PBXBuildFile; fileRef = FB484BC41CCA509600F2251A /* UIImage+DrawRadius.m */; };
-		FBAECEB91CCDD947001A7978 /* FMRadiusImageTask.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAECEB81CCDD947001A7978 /* FMRadiusImageTask.m */; };
 		FBFDF97C1C9FEE7C005F12FD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FBFDF97B1C9FEE7C005F12FD /* main.m */; };
 		FBFDF9851C9FEE7C005F12FD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBFDF9831C9FEE7C005F12FD /* Main.storyboard */; };
 		FBFDF9871C9FEE7C005F12FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBFDF9861C9FEE7C005F12FD /* Assets.xcassets */; };
@@ -27,34 +21,21 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		FB468B1A1CCE18990089F9EA /* FMRadiusLabelTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMRadiusLabelTask.m; path = RadiusDrawView/FMRadiusLabelTask.m; sourceTree = "<group>"; };
-		FB468B1B1CCE18990089F9EA /* FMRadiusLabelTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMRadiusLabelTask.h; path = RadiusDrawView/FMRadiusLabelTask.h; sourceTree = "<group>"; };
-		FB484BA11CCA502C00F2251A /* FMComparisonLabelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMComparisonLabelCell.m; path = IncreasedInfluence/Comparison/Cell/FMComparisonLabelCell.m; sourceTree = "<group>"; };
-		FB484BA21CCA502C00F2251A /* FMComparisonLabelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMComparisonLabelCell.h; path = IncreasedInfluence/Comparison/Cell/FMComparisonLabelCell.h; sourceTree = "<group>"; };
 		FB484BA31CCA502C00F2251A /* FMComparisonImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMComparisonImageCell.m; path = IncreasedInfluence/Comparison/Cell/FMComparisonImageCell.m; sourceTree = "<group>"; };
 		FB484BA41CCA502C00F2251A /* FMComparisonImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMComparisonImageCell.h; path = IncreasedInfluence/Comparison/Cell/FMComparisonImageCell.h; sourceTree = "<group>"; };
 		FB484BA51CCA502C00F2251A /* FMComparisonCellProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMComparisonCellProtocol.h; path = IncreasedInfluence/Comparison/Cell/FMComparisonCellProtocol.h; sourceTree = "<group>"; };
-		FB484BA61CCA502C00F2251A /* FMComparisonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMComparisonCell.m; path = IncreasedInfluence/Comparison/Cell/FMComparisonCell.m; sourceTree = "<group>"; };
-		FB484BA71CCA502C00F2251A /* FMComparisonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMComparisonCell.h; path = IncreasedInfluence/Comparison/Cell/FMComparisonCell.h; sourceTree = "<group>"; };
 		FB484BAB1CCA503A00F2251A /* DrawRadiusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawRadiusViewController.m; path = IncreasedInfluence/Comparison/VC/DrawRadiusViewController.m; sourceTree = "<group>"; };
 		FB484BAC1CCA503A00F2251A /* DrawRadiusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DrawRadiusViewController.h; path = IncreasedInfluence/Comparison/VC/DrawRadiusViewController.h; sourceTree = "<group>"; };
-		FB484BAE1CCA504C00F2251A /* FMRadiusLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMRadiusLabel.m; path = RadiusDrawView/FMRadiusLabel.m; sourceTree = "<group>"; };
-		FB484BAF1CCA504C00F2251A /* FMRadiusLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMRadiusLabel.h; path = RadiusDrawView/FMRadiusLabel.h; sourceTree = "<group>"; };
 		FB484BB01CCA504C00F2251A /* FMRadiusImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMRadiusImageView.m; path = RadiusDrawView/FMRadiusImageView.m; sourceTree = "<group>"; };
 		FB484BB11CCA504C00F2251A /* FMRadiusImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMRadiusImageView.h; path = RadiusDrawView/FMRadiusImageView.h; sourceTree = "<group>"; };
-		FB484BB21CCA504C00F2251A /* FMRadiusDrawProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMRadiusDrawProtocol.h; path = RadiusDrawView/FMRadiusDrawProtocol.h; sourceTree = "<group>"; };
 		FB484BB51CCA505A00F2251A /* FMSketchpadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMSketchpadViewController.m; path = IncreasedInfluence/Skatchpad/FMSketchpadViewController.m; sourceTree = "<group>"; };
 		FB484BB61CCA505A00F2251A /* FMSketchpadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMSketchpadViewController.h; path = IncreasedInfluence/Skatchpad/FMSketchpadViewController.h; sourceTree = "<group>"; };
-		FB484BB91CCA507C00F2251A /* YYSentinel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YYSentinel.m; path = IncreasedInfluence/Base/YYSentinel.m; sourceTree = "<group>"; };
-		FB484BBA1CCA507C00F2251A /* YYSentinel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YYSentinel.h; path = IncreasedInfluence/Base/YYSentinel.h; sourceTree = "<group>"; };
 		FB484BBB1CCA507C00F2251A /* FMEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMEntryViewController.m; path = IncreasedInfluence/Base/FMEntryViewController.m; sourceTree = "<group>"; };
 		FB484BBC1CCA507C00F2251A /* FMEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMEntryViewController.h; path = IncreasedInfluence/Base/FMEntryViewController.h; sourceTree = "<group>"; };
 		FB484BBE1CCA507C00F2251A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = IncreasedInfluence/Base/AppDelegate.m; sourceTree = "<group>"; };
 		FB484BBF1CCA507C00F2251A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = IncreasedInfluence/Base/AppDelegate.h; sourceTree = "<group>"; };
 		FB484BC41CCA509600F2251A /* UIImage+DrawRadius.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+DrawRadius.m"; path = "IncreasedInfluence/Base/Draw/UIImage+DrawRadius.m"; sourceTree = "<group>"; };
 		FB484BC51CCA509600F2251A /* UIImage+DrawRadius.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+DrawRadius.h"; path = "IncreasedInfluence/Base/Draw/UIImage+DrawRadius.h"; sourceTree = "<group>"; };
-		FBAECEB71CCDD947001A7978 /* FMRadiusImageTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMRadiusImageTask.h; path = RadiusDrawView/FMRadiusImageTask.h; sourceTree = "<group>"; };
-		FBAECEB81CCDD947001A7978 /* FMRadiusImageTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMRadiusImageTask.m; path = RadiusDrawView/FMRadiusImageTask.m; sourceTree = "<group>"; };
 		FBFDF9771C9FEE7C005F12FD /* IncreasedInfluence.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IncreasedInfluence.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBFDF97B1C9FEE7C005F12FD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FBFDF9841C9FEE7C005F12FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -77,8 +58,6 @@
 		FB484BC31CCA508900F2251A /* Draw */ = {
 			isa = PBXGroup;
 			children = (
-				FB484BB91CCA507C00F2251A /* YYSentinel.m */,
-				FB484BBA1CCA507C00F2251A /* YYSentinel.h */,
 				FB484BC41CCA509600F2251A /* UIImage+DrawRadius.m */,
 				FB484BC51CCA509600F2251A /* UIImage+DrawRadius.h */,
 			);
@@ -88,6 +67,7 @@
 		FB8EF5F41CC48E7B00A3F1D0 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				FBDA7D7A1CE028A30008AAFD /* MaskDraw */,
 				FB484BC31CCA508900F2251A /* Draw */,
 				FB484BBB1CCA507C00F2251A /* FMEntryViewController.m */,
 				FB484BBC1CCA507C00F2251A /* FMEntryViewController.h */,
@@ -127,29 +107,25 @@
 		FB8EF5FA1CC49AED00A3F1D0 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				FB484BA11CCA502C00F2251A /* FMComparisonLabelCell.m */,
-				FB484BA21CCA502C00F2251A /* FMComparisonLabelCell.h */,
 				FB484BA31CCA502C00F2251A /* FMComparisonImageCell.m */,
 				FB484BA41CCA502C00F2251A /* FMComparisonImageCell.h */,
 				FB484BA51CCA502C00F2251A /* FMComparisonCellProtocol.h */,
-				FB484BA61CCA502C00F2251A /* FMComparisonCell.m */,
-				FB484BA71CCA502C00F2251A /* FMComparisonCell.h */,
 			);
 			name = Cell;
+			sourceTree = "<group>";
+		};
+		FBDA7D7A1CE028A30008AAFD /* MaskDraw */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = MaskDraw;
 			sourceTree = "<group>";
 		};
 		FBF8334F1CBB407200F1C7B7 /* CornerDrawView */ = {
 			isa = PBXGroup;
 			children = (
-				FB468B1A1CCE18990089F9EA /* FMRadiusLabelTask.m */,
-				FB468B1B1CCE18990089F9EA /* FMRadiusLabelTask.h */,
-				FB484BAE1CCA504C00F2251A /* FMRadiusLabel.m */,
-				FB484BAF1CCA504C00F2251A /* FMRadiusLabel.h */,
 				FB484BB01CCA504C00F2251A /* FMRadiusImageView.m */,
 				FB484BB11CCA504C00F2251A /* FMRadiusImageView.h */,
-				FB484BB21CCA504C00F2251A /* FMRadiusDrawProtocol.h */,
-				FBAECEB71CCDD947001A7978 /* FMRadiusImageTask.h */,
-				FBAECEB81CCDD947001A7978 /* FMRadiusImageTask.m */,
 			);
 			name = CornerDrawView;
 			path = IncreasedInfluence;
@@ -267,18 +243,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB484BC21CCA507C00F2251A /* AppDelegate.m in Sources */,
-				FBAECEB91CCDD947001A7978 /* FMRadiusImageTask.m in Sources */,
-				FB484BB31CCA504C00F2251A /* FMRadiusLabel.m in Sources */,
-				FB484BA81CCA502C00F2251A /* FMComparisonLabelCell.m in Sources */,
 				FB484BC11CCA507C00F2251A /* FMEntryViewController.m in Sources */,
 				FB484BA91CCA502C00F2251A /* FMComparisonImageCell.m in Sources */,
 				FB484BAD1CCA503A00F2251A /* DrawRadiusViewController.m in Sources */,
 				FB484BB41CCA504C00F2251A /* FMRadiusImageView.m in Sources */,
 				FBFDF97C1C9FEE7C005F12FD /* main.m in Sources */,
-				FB484BAA1CCA502C00F2251A /* FMComparisonCell.m in Sources */,
 				FB484BC71CCA509600F2251A /* UIImage+DrawRadius.m in Sources */,
-				FB484BC01CCA507C00F2251A /* YYSentinel.m in Sources */,
-				FB468B1C1CCE18990089F9EA /* FMRadiusLabelTask.m in Sources */,
 				FB484BB71CCA505A00F2251A /* FMSketchpadViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

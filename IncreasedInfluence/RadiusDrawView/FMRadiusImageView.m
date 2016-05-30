@@ -6,15 +6,14 @@
 //  Copyright © 2016年 isahuang. All rights reserved.
 //
 
-#import "YYSentinel.h"
 #import "FMRadiusImageView.h"
 #import "UIImage+DrawRadius.h"
-#import "FMRadiusImageTask.h"
+#import <libkern/OSAtomic.h>
 
 
 
 @interface FMRadiusImageView()
-@property(nonatomic, strong)YYSentinel *sentinel;
+@property(nonatomic, assign)int32_t value;
 @property(nonatomic, strong)UIImageView *resultImg;
 
 //borderWidth决定是否绘制，frame和borderColor, cornerRadius决定是否重新绘制
@@ -22,6 +21,7 @@
 //frame, cornerRadius, borderWidth决定是否重新绘制
 @property(nonatomic, strong)UIImage *cornerUserImage;
 @property(nonatomic, strong)FMRadiusImageTask *lastTask;
+@property(nonatomic, assign)BOOL hasInit;
 
 @end
 @implementation FMRadiusImageView
@@ -40,6 +40,14 @@
     return self;
 }
 
+-(instancetype)init {
+    self = [super init];
+    if(self){
+        [self initSettings];
+    }
+    return self;
+}
+
 - (void)setupWithCornerRadius:(CGFloat)cornerRadius andBorderWidth:(CGFloat)borderWidth andBorderColor:(UIColor *)borderColor andImage:(UIImage *)image
 {
     self.borderColor = borderColor;
@@ -50,22 +58,22 @@
 
 - (void)initSettings
 {
-    self.sentinel = [YYSentinel new];
-    self.isCircle = NO;
-    self.borderColor = [UIColor clearColor];
+    self.value = 0;
+    _borderColor = [UIColor clearColor];
     self.resultImg = [[UIImageView alloc] initWithFrame:self.bounds];
     self.resultImg.contentMode = UIViewContentModeScaleAspectFit;
     self.backgroundColor = [UIColor clearColor];
     [self addSubview:self.resultImg];
+    _hasInit = YES;
 }
 
 
 #pragma mark draw
 -(void)p_drawWithImageWithTask:(FMRadiusImageTask *)draftTask
 {
-    int32_t value = self.sentinel.value;
+    int32_t value = self.value;
     BOOL (^isCancelled)() = ^BOOL(){
-        return (value != self.sentinel.value) && (!self.image);
+        return (value != self.value) && (!self.image);
     };
     
     dispatch_async(getRadiusDisplayQueue(), ^{
@@ -151,17 +159,15 @@
 
 - (void)p_cancelAsyncDraw
 {
-    [self.sentinel increase];
+    if(!self.hasInit){
+        [self initSettings];
+    }
+    OSAtomicIncrement32(&_value);
 }
 
 #pragma mark properties setting
 - (void)setCornerRadius:(CGFloat)cornerRadius
 {
-    if(useSetup){
-        _cornerRadius = cornerRadius;
-        return ;
-    }
-    
     if(cornerRadius != _cornerRadius && (cornerRadius >= 0)){
         [self p_cancelAsyncDraw];
         _cornerRadius = cornerRadius;
@@ -171,10 +177,6 @@
 
 -(void)setBorderWidth:(CGFloat)borderWidth
 {
-    if(useSetup){
-        _borderWidth = borderWidth;
-        return ;
-    }
     if(_borderWidth != borderWidth && borderWidth >= 0){
         [self p_cancelAsyncDraw];
         _borderWidth = borderWidth;
@@ -184,11 +186,6 @@
 
 -(void)setBorderColor:(UIColor *)borderColor
 {
-    if(useSetup){
-        _borderColor = borderColor;
-        return ;
-    }
-    
     if(borderColor && borderColor != _borderColor){
         [self p_cancelAsyncDraw];
         _borderColor = borderColor;
@@ -210,10 +207,6 @@
 
 - (void)setImage:(UIImage *)image
 {
-    if(useSetup){
-        _image = image;
-        return ;
-    }
     if(image){
         [self p_cancelAsyncDraw];
         _image = image;
@@ -221,4 +214,26 @@
     }
 }
 
+-(void)setFrame:(CGRect)frame{
+    [super setFrame:frame];
+    [self p_cancelAsyncDraw];
+    [self startDraw];
+}
+
+@end
+
+
+@implementation FMRadiusImageTask
+-(instancetype)initWithFrame:(CGRect)frame andCornerRadius:(CGFloat)cornerRadius andBorderWidth:(CGFloat)borderWidth andImg:(UIImage *)image andBorderColor:(UIColor *)borderColor
+{
+    self = [super init];
+    if(self){
+        self.frame = frame;
+        self.cornerRadius = cornerRadius;
+        self.borderWidth = borderWidth;
+        self.image = image;
+        self.borderColor = borderColor;
+    }
+    return self;
+}
 @end

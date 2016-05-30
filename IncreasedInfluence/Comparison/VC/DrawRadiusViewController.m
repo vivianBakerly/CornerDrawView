@@ -8,7 +8,6 @@
 
 #import "DrawRadiusViewController.h"
 #import "FMComparisonImageCell.h"
-#import "FMComparisonLabelCell.h"
 //#import "CornerRadiusMicro.h"
 
 @interface DrawRadiusViewController ()<UITableViewDelegate, UITableViewDataSource>
@@ -70,58 +69,19 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(self.compareType == FMComparisonType_Img){
-        if(!self.useSystemDefault){
-            NSString *identifier = [FMComparisonImageCell identifier];
-            FMComparisonImageCell *cell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
-            if(cell == nil){
-                cell = [[FMComparisonImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-                cell.backgroundColor = [UIColor grayColor];
-            }
-            [cell setupItemWithSwitcher:self.useSystemDefault];
-            return cell;
-        }else{
-            NSString *identifier = [FMComparisonImageCell identifierForOriginType];
-            FMComparisonImageCell *cell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
-            if(cell == nil){
-                cell = [[FMComparisonImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-                cell.backgroundColor = [UIColor grayColor];
-            }
-            [cell setupItemWithSwitcher:self.useSystemDefault];
-            return cell;
-        }
-        
-    }else{
-        if(!self.useSystemDefault){
-            NSString *identifier = [FMComparisonLabelCell identifier];
-            FMComparisonLabelCell *cell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
-            if(cell == nil){
-                cell = [[FMComparisonLabelCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-                cell.backgroundColor = [UIColor grayColor];
-            }
-            [cell setupItemWithSwitcher:self.useSystemDefault];
-            return cell;
-        }else{
-            NSString *identifier = [FMComparisonLabelCell identifierForOriginType];
-            FMComparisonLabelCell *cell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
-            if(cell == nil){
-                cell = [[FMComparisonLabelCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-                cell.backgroundColor = [UIColor grayColor];
-            }
-            [cell setupItemWithSwitcher:self.useSystemDefault];
-            return cell;
-        }
+    NSString *identifier = (!self.useSystemDefault) ? [FMComparisonImageCell identifier] : [FMComparisonImageCell identifierForOriginType];
+    FMComparisonImageCell *cell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
+    if(cell == nil){
+        cell = [[FMComparisonImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell.backgroundColor = [UIColor grayColor];
     }
-    return [UITableViewCell new];
+    [cell setupItemWithSwitcher:self.useSystemDefault];
+    return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(self.compareType == FMComparisonType_Img){
-        return [FMComparisonImageCell heightForRow];
-    }else{
-        return [FMComparisonLabelCell heightForRow];
-    }
+    return [FMComparisonImageCell heightForRow];
 }
 
 @end

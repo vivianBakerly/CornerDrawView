@@ -12,7 +12,6 @@
 
 typedef enum:NSUInteger {
     FMEntryViewControllerRowType_ComparisonImg = 0,
-    FMEntryViewControllerRowType_ComparisonLabel,
     FMEntryViewControllerRowType_Sketchpad,
     FMEntryViewControllerRowType_Count,
 }FMEntryViewControllerRowType;
@@ -30,7 +29,7 @@ typedef enum:NSUInteger {
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    self.names = @[@"Comparison(ImageViews)", @"Comparison(Labels)", @"Sketchpad"];
+    self.names = @[@"Comparison(ImageViews)", @"Sketchpad"];
     self.title = @"Catalog";
     [self.view addSubview:self.tableView];
 }
@@ -77,13 +76,6 @@ typedef enum:NSUInteger {
         case FMEntryViewControllerRowType_ComparisonImg:
         {
             vc = [[DrawRadiusViewController alloc] init];
-            ((DrawRadiusViewController *)vc).compareType = FMComparisonType_Img;
-        }
-            break;
-        case FMEntryViewControllerRowType_ComparisonLabel:
-        {
-            vc = [[DrawRadiusViewController alloc] init];
-            ((DrawRadiusViewController *)vc).compareType = FMComparisonType_Label;
         }
             break;
         default:

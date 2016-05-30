@@ -8,11 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum : NSUInteger{
-    FMComparisonType_Img,
-    FMComparisonType_Label,
-}FMComparisonType;
 @interface DrawRadiusViewController : UIViewController
 
-@property(nonatomic, assign)FMComparisonType compareType;
 @end
