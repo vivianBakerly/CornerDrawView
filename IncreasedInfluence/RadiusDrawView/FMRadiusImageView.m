@@ -68,7 +68,7 @@
 }
 
 #pragma mark 绘制
--(void)p_drawWithImageWithTask:(FMRadiusImageTask *)draftTask
+-(void)drawWithImageWithTask:(FMRadiusImageTask *)draftTask
 {
     int32_t value = self.value;
     BOOL (^isCancelled)() = ^BOOL(){
@@ -111,7 +111,7 @@
 #pragma -mark 是否需要重绘
 -(BOOL)needRedrawUserImageCompareTo:(FMRadiusImageTask *)currentTask
 {
-    if([self p_mustRedraw:currentTask]){
+    if([self mustRedraw:currentTask]){
         return YES;
     }
     
@@ -127,7 +127,7 @@
 
 - (BOOL)needRedrawCornerImageCompareTo:(FMRadiusImageTask *)currentTask
 {
-    if([self p_mustRedraw:currentTask]){
+    if([self mustRedraw:currentTask]){
         return YES;
     }
     if(currentTask.borderColor != self.lastTask.borderColor){
@@ -136,7 +136,7 @@
     return NO;
 }
 
-- (BOOL)p_mustRedraw:(FMRadiusImageTask *)currentTask
+- (BOOL)mustRedraw:(FMRadiusImageTask *)currentTask
 {
     if(self.lastTask.cornerRadius != currentTask.cornerRadius){
         return YES;
@@ -154,10 +154,10 @@
 #pragma -mark 开始 & 取消
 -(void)startDraw
 {
-    [self p_drawWithImageWithTask:[[FMRadiusImageTask alloc] initWithFrame:self.frame andCornerRadius:self.cornerRadius andBorderWidth:self.borderWidth andImg:self.image andBorderColor:self.borderColor]];
+    [self drawWithImageWithTask:[[FMRadiusImageTask alloc] initWithFrame:self.frame andCornerRadius:self.cornerRadius andBorderWidth:self.borderWidth andImg:self.image andBorderColor:self.borderColor]];
 }
 
-- (void)p_cancelAsyncDraw
+- (void)cancelAsyncDraw
 {
     OSAtomicIncrement32(&_value);
 }
@@ -166,7 +166,7 @@
 - (void)setCornerRadius:(CGFloat)cornerRadius
 {
     if(cornerRadius != _cornerRadius && (cornerRadius >= 0)){
-        [self p_cancelAsyncDraw];
+        [self cancelAsyncDraw];
         _cornerRadius = cornerRadius;
         [self startDraw];
     }
@@ -175,7 +175,7 @@
 -(void)setBorderWidth:(CGFloat)borderWidth
 {
     if(_borderWidth != borderWidth && borderWidth >= 0){
-        [self p_cancelAsyncDraw];
+        [self cancelAsyncDraw];
         _borderWidth = borderWidth;
         [self startDraw];
     }
@@ -184,7 +184,7 @@
 -(void)setBorderColor:(UIColor *)borderColor
 {
     if(borderColor && borderColor != _borderColor){
-        [self p_cancelAsyncDraw];
+        [self cancelAsyncDraw];
         _borderColor = borderColor;
         [self startDraw];
     }
@@ -192,7 +192,7 @@
 
 - (void)setIsCircle:(BOOL)isCircle
 {
-    [self p_cancelAsyncDraw];
+    [self cancelAsyncDraw];
     _isCircle = isCircle;
     if(isCircle){
         CGSize size = self.bounds.size;
@@ -205,14 +205,14 @@
 - (void)setImage:(UIImage *)image
 {
     if(image){
-        [self p_cancelAsyncDraw];
+        [self cancelAsyncDraw];
         _image = image;
         [self startDraw];
     }
 }
 
 -(void)setFrame:(CGRect)frame{
-    [self p_cancelAsyncDraw];
+    [self cancelAsyncDraw];
     [super setFrame:frame];
     [self startDraw];
 }
