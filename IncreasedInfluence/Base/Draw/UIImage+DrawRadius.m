@@ -51,10 +51,10 @@
     return final;
 }
 
-+ (int)randomNumberStartFrom: (int)base ToEnd: (int)top {
++ (int)randomNumberStartFrom:(int)base ToEnd:(int)top {
     if(base >= top){
         return base;
     }
-    return (arc4random() % top) + base;
+    return (arc4random() % (top - base + 1)) + base;
 }
 @end

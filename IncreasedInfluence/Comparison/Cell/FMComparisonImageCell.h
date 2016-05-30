@@ -11,5 +11,4 @@
 
 @interface FMComparisonImageCell : UITableViewCell<FMComparisonCellProtocol>
 
-+(NSString *)identifierForOriginType;
 @end

@@ -10,18 +10,19 @@
 #import "UIImage+DrawRadius.h"
 #import <libkern/OSAtomic.h>
 
-
-
 @interface FMRadiusImageView()
+/**
+ *  value:     每次绘制任务的唯一标识符
+ *  resultImg:
+ */
 @property(nonatomic, assign)int32_t value;
 @property(nonatomic, strong)UIImageView *resultImg;
 
-//borderWidth决定是否绘制，frame和borderColor, cornerRadius决定是否重新绘制
+//下层图片，用于边框，borderWidth决定是否绘制，frame和borderColor, cornerRadius决定是否重新绘制
 @property(nonatomic, strong)UIImage *cornerBorderImage;
-//frame, cornerRadius, borderWidth决定是否重新绘制
+//上层图片，用于传入的图片，frame, cornerRadius, borderWidth决定是否重新绘制
 @property(nonatomic, strong)UIImage *cornerUserImage;
 @property(nonatomic, strong)FMRadiusImageTask *lastTask;
-@property(nonatomic, assign)BOOL hasInit;
 
 @end
 @implementation FMRadiusImageView
@@ -64,11 +65,9 @@
     self.resultImg.contentMode = UIViewContentModeScaleAspectFit;
     self.backgroundColor = [UIColor clearColor];
     [self addSubview:self.resultImg];
-    _hasInit = YES;
 }
 
-
-#pragma mark draw
+#pragma mark 绘制
 -(void)p_drawWithImageWithTask:(FMRadiusImageTask *)draftTask
 {
     int32_t value = self.value;
@@ -110,6 +109,7 @@
     });
 }
 
+#pragma -mark 是否需要重绘
 -(BOOL)needRedrawUserImageCompareTo:(FMRadiusImageTask *)currentTask
 {
     if([self p_mustRedraw:currentTask]){
@@ -124,11 +124,6 @@
         return YES;
     }
     return NO;
-}
-
--(void)startDraw
-{
-    [self p_drawWithImageWithTask:[[FMRadiusImageTask alloc] initWithFrame:self.frame andCornerRadius:self.cornerRadius andBorderWidth:self.borderWidth andImg:self.image andBorderColor:self.borderColor]];
 }
 
 - (BOOL)needRedrawCornerImageCompareTo:(FMRadiusImageTask *)currentTask
@@ -157,15 +152,18 @@
     return NO;
 }
 
+#pragma -mark 开始 & 取消
+-(void)startDraw
+{
+    [self p_drawWithImageWithTask:[[FMRadiusImageTask alloc] initWithFrame:self.frame andCornerRadius:self.cornerRadius andBorderWidth:self.borderWidth andImg:self.image andBorderColor:self.borderColor]];
+}
+
 - (void)p_cancelAsyncDraw
 {
-    if(!self.hasInit){
-        [self initSettings];
-    }
     OSAtomicIncrement32(&_value);
 }
 
-#pragma mark properties setting
+#pragma mark 属性
 - (void)setCornerRadius:(CGFloat)cornerRadius
 {
     if(cornerRadius != _cornerRadius && (cornerRadius >= 0)){
@@ -215,13 +213,12 @@
 }
 
 -(void)setFrame:(CGRect)frame{
-    [super setFrame:frame];
     [self p_cancelAsyncDraw];
+    [super setFrame:frame];
     [self startDraw];
 }
 
 @end
-
 
 @implementation FMRadiusImageTask
 -(instancetype)initWithFrame:(CGRect)frame andCornerRadius:(CGFloat)cornerRadius andBorderWidth:(CGFloat)borderWidth andImg:(UIImage *)image andBorderColor:(UIColor *)borderColor

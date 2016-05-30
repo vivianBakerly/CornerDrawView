@@ -8,7 +8,6 @@
 
 #import "DrawRadiusViewController.h"
 #import "FMComparisonImageCell.h"
-//#import "CornerRadiusMicro.h"
 
 @interface DrawRadiusViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property(nonatomic, assign)BOOL useSystemDefault;
@@ -73,7 +72,7 @@
     FMComparisonImageCell *cell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
     if(cell == nil){
         cell = [[FMComparisonImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-        cell.backgroundColor = [UIColor grayColor];
+        cell.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.8];
     }
     [cell setupItemWithSwitcher:self.useSystemDefault];
     return cell;

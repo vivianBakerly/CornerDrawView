@@ -46,8 +46,8 @@ static const CGFloat kGapBetweenElement = 5;
                 imgView.layer.borderColor = [UIColor yellowColor].CGColor;
                 imgView.layer.borderWidth = 5;
                 imgView.layer.masksToBounds = YES;
-//                imgView.layer.shouldRasterize = YES;
-//                imgView.layer.rasterizationScale = [UIScreen mainScreen].scale;
+                imgView.layer.shouldRasterize = YES;
+                imgView.layer.rasterizationScale = [UIScreen mainScreen].scale;
                 [self addSubview:imgView];
                 [tempArray addObject:imgView];
             }else{

@@ -13,6 +13,7 @@
 @required
 +(NSString *)identifier;
 +(CGFloat)heightForRow;
++(NSString *)identifierForOriginType;
 
 -(void)setupItemWithSwitcher:(BOOL)useSystemDefault;
 @end

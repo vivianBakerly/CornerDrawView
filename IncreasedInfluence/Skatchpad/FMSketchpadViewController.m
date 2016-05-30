@@ -123,13 +123,11 @@ static const CGFloat kSketchpadGap = 50;
 #pragma mark Actions
 - (void)pressConfirm
 {
+    self.radiusDraft = [self.radiusTextView.text floatValue];
+    self.widthDraft = [self.borderWidthTextView.text floatValue];
     self.radiusImageView.cornerRadius = self.radiusDraft;
     self.radiusImageView.borderWidth = self.widthDraft;
     self.radiusImageView.borderColor = (self.turnOn) ? [UIColor redColor] : [UIColor yellowColor];
-    
-//    for(int i = 0 ; i < 10 ; i++){
-//        self.radiusImageView.cornerRadius = self.radiusDraft;
-//    }
 }
 - (void)switchMode
 {
