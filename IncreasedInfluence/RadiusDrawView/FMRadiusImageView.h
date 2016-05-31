@@ -41,6 +41,5 @@ static dispatch_queue_t getRadiusDisplayQueue() {
 @property(nonatomic, strong)UIImage *image;
 @property(nonatomic, assign)CGRect frame;
 
-
 -(instancetype)initWithFrame:(CGRect)frame andCornerRadius:(CGFloat)cornerRadius andBorderWidth:(CGFloat)borderWidth andImg:(UIImage *)image andBorderColor:(UIColor *)borderColor;
 @end

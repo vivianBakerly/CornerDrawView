@@ -11,14 +11,16 @@
 #import <libkern/OSAtomic.h>
 
 @interface FMRadiusImageView()
-/**
- *  value:     每次绘制任务的唯一标识符
- *  resultImg: 最终展示的图片ImageView
- *  cornerBorderImage: 下层图片，用于边框，borderWidth决定是否绘制，frame和borderColor, cornerRadius决定是否重新绘制
- *  cornerUserImage: 上层图片，用于传入的图片，frame, cornerRadius, borderWidth决定是否重新绘制
- *  lastTask: 上次成功绘制的任务，用于比较决定是否需要重绘或使用上次的结果
+
+/** Explanation of private properties:
+ *  identifier: the unique id for each draw task
+ *  resultImg: the ImageView which represents the final mixed Images
+ *  cornerBorderImage: Buttom Image(For Border): borderWidth, frame and borderColor, cornerRadius could decide whether it should be redraw.
+ *  cornerUserImage: Upper Image(For customed Image): frame, cornerRadius, borderWidth could decide whether it should be redraw.
+ *  lastTask: the last successful task
  */
-@property(nonatomic, assign)int32_t value;
+
+@property(nonatomic, assign)int32_t identifier;
 @property(nonatomic, strong)UIImageView *resultImg;
 @property(nonatomic, strong)UIImage *cornerBorderImage;
 @property(nonatomic, strong)UIImage *cornerUserImage;
@@ -26,10 +28,6 @@
 
 @end
 @implementation FMRadiusImageView
-
-@synthesize cornerRadius = _cornerRadius;
-@synthesize borderWidth = _borderWidth;
-@synthesize borderColor = _borderColor;
 
 #pragma mark init
 - (instancetype)initWithFrame:(CGRect)frame
@@ -59,7 +57,7 @@
 
 - (void)initSettings
 {
-    self.value = 0;
+    self.identifier = 0;
     _borderColor = [UIColor clearColor];
     self.resultImg = [[UIImageView alloc] initWithFrame:self.bounds];
     self.resultImg.contentMode = UIViewContentModeScaleAspectFit;
@@ -70,9 +68,9 @@
 #pragma mark 绘制
 -(void)drawWithImageWithTask:(FMRadiusImageTask *)draftTask
 {
-    int32_t value = self.value;
+    int32_t value = self.identifier;
     BOOL (^isCancelled)() = ^BOOL(){
-        return (value != self.value) && (!self.image);
+        return (value != self.identifier) && (!self.image);
     };
     
     dispatch_async(getRadiusDisplayQueue(), ^{
@@ -82,14 +80,13 @@
         
         BOOL needRedrawUserImage = [self needRedrawUserImageCompareTo:draftTask];
         BOOL needRedrawCornerImage = [self needRedrawCornerImageCompareTo:draftTask];
-        
         if(needRedrawCornerImage || needRedrawUserImage){
             CGRect drawFrame = self.resultImg.frame;
             UIImage *final;
             UIImage *top = (needRedrawUserImage) ?  [UIImage drawCornerRadiusWithBgImg:self.image withBorderWidth:self.borderWidth andCorderRadius:self.cornerRadius inFrame:drawFrame] : self.cornerUserImage;
             UIImage *bg;
             if(self.borderWidth > 0 && !isCancelled()){
-                //下层图片，用于边框
+                //Buttom Image
                 bg = (needRedrawCornerImage) ? [UIImage drawCornerRadiusWithBgImg:[UIImage drawsolidRecInFrame:drawFrame andfillWithColor:self.borderColor] withBorderWidth:0 andCorderRadius:self.cornerRadius inFrame:drawFrame] : self.cornerBorderImage;
                 final = [UIImage mixTopImg:top withBgImg:bg inFrame:drawFrame WithBorderWidth:self.borderWidth];
             }else{
@@ -159,7 +156,7 @@
 
 - (void)cancelAsyncDraw
 {
-    OSAtomicIncrement32(&_value);
+    OSAtomicIncrement32(&_identifier);
 }
 
 #pragma mark 属性
@@ -196,8 +193,7 @@
     _isCircle = isCircle;
     if(isCircle){
         CGSize size = self.bounds.size;
-        //取小的值, 避免裁剪过度
-        self.cornerRadius = (size.width <= size.height) ? size.width : size.height;
+        _cornerRadius = (size.width <= size.height) ? size.width : size.height;
     }
     [self startDraw];
 }

@@ -10,5 +10,4 @@
 #import "FMComparisonCellProtocol.h"
 
 @interface FMComparisonImageCell : UITableViewCell<FMComparisonCellProtocol>
-
 @end

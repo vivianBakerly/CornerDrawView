@@ -14,6 +14,7 @@
 		FB484BC11CCA507C00F2251A /* FMEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB484BBB1CCA507C00F2251A /* FMEntryViewController.m */; };
 		FB484BC21CCA507C00F2251A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB484BBE1CCA507C00F2251A /* AppDelegate.m */; };
 		FB484BC71CCA509600F2251A /* UIImage+DrawRadius.m in Sources */ = {isa = PBXBuildFile; fileRef = FB484BC41CCA509600F2251A /* UIImage+DrawRadius.m */; };
+		FB6AB14F1CFD30CC00E405D8 /* FMMaskRadiusView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB6AB14D1CFD30CC00E405D8 /* FMMaskRadiusView.m */; };
 		FBFDF97C1C9FEE7C005F12FD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FBFDF97B1C9FEE7C005F12FD /* main.m */; };
 		FBFDF9851C9FEE7C005F12FD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBFDF9831C9FEE7C005F12FD /* Main.storyboard */; };
 		FBFDF9871C9FEE7C005F12FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBFDF9861C9FEE7C005F12FD /* Assets.xcassets */; };
@@ -36,6 +37,8 @@
 		FB484BBF1CCA507C00F2251A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = IncreasedInfluence/Base/AppDelegate.h; sourceTree = "<group>"; };
 		FB484BC41CCA509600F2251A /* UIImage+DrawRadius.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+DrawRadius.m"; path = "IncreasedInfluence/Base/Draw/UIImage+DrawRadius.m"; sourceTree = "<group>"; };
 		FB484BC51CCA509600F2251A /* UIImage+DrawRadius.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+DrawRadius.h"; path = "IncreasedInfluence/Base/Draw/UIImage+DrawRadius.h"; sourceTree = "<group>"; };
+		FB6AB14D1CFD30CC00E405D8 /* FMMaskRadiusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMMaskRadiusView.m; path = IncreasedInfluence/MaskDraw/FMMaskRadiusView.m; sourceTree = "<group>"; };
+		FB6AB14E1CFD30CC00E405D8 /* FMMaskRadiusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMMaskRadiusView.h; path = IncreasedInfluence/MaskDraw/FMMaskRadiusView.h; sourceTree = "<group>"; };
 		FBFDF9771C9FEE7C005F12FD /* IncreasedInfluence.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IncreasedInfluence.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBFDF97B1C9FEE7C005F12FD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FBFDF9841C9FEE7C005F12FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -55,20 +58,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		FB484BC31CCA508900F2251A /* Draw */ = {
+		FB484BC31CCA508900F2251A /* AsyncDraw */ = {
 			isa = PBXGroup;
 			children = (
 				FB484BC41CCA509600F2251A /* UIImage+DrawRadius.m */,
 				FB484BC51CCA509600F2251A /* UIImage+DrawRadius.h */,
 			);
-			name = Draw;
+			name = AsyncDraw;
 			sourceTree = "<group>";
 		};
 		FB8EF5F41CC48E7B00A3F1D0 /* Base */ = {
 			isa = PBXGroup;
 			children = (
 				FBDA7D7A1CE028A30008AAFD /* MaskDraw */,
-				FB484BC31CCA508900F2251A /* Draw */,
+				FB484BC31CCA508900F2251A /* AsyncDraw */,
 				FB484BBB1CCA507C00F2251A /* FMEntryViewController.m */,
 				FB484BBC1CCA507C00F2251A /* FMEntryViewController.h */,
 				FB484BBE1CCA507C00F2251A /* AppDelegate.m */,
@@ -117,6 +120,8 @@
 		FBDA7D7A1CE028A30008AAFD /* MaskDraw */ = {
 			isa = PBXGroup;
 			children = (
+				FB6AB14D1CFD30CC00E405D8 /* FMMaskRadiusView.m */,
+				FB6AB14E1CFD30CC00E405D8 /* FMMaskRadiusView.h */,
 			);
 			name = MaskDraw;
 			sourceTree = "<group>";
@@ -248,6 +253,7 @@
 				FB484BAD1CCA503A00F2251A /* DrawRadiusViewController.m in Sources */,
 				FB484BB41CCA504C00F2251A /* FMRadiusImageView.m in Sources */,
 				FBFDF97C1C9FEE7C005F12FD /* main.m in Sources */,
+				FB6AB14F1CFD30CC00E405D8 /* FMMaskRadiusView.m in Sources */,
 				FB484BC71CCA509600F2251A /* UIImage+DrawRadius.m in Sources */,
 				FB484BB71CCA505A00F2251A /* FMSketchpadViewController.m in Sources */,
 			);
